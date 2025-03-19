@@ -1,0 +1,2 @@
+from .language_model.stingbee_llama import StingBeeLlamaForCausalLM, StingBeeConfig
+from .language_model.stingbee_mpt import StingBeeMPTForCausalLM, StingBeeMPTConfig

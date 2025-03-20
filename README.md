@@ -4,9 +4,10 @@
   
 
 <p align="center">
-  ¹ Khalifa University of Science and Technology &emsp;&emsp;
-  ² Abu Dhabi University&emsp; &emsp;
-  ³ University of Bonn&emsp;&emsp;
+  ¹ Khalifa University of Science and Technology &emsp;&emsp;&emsp;&emsp;
+  ² Abu Dhabi University&emsp; &emsp;&emsp;&emsp;
+  <br>
+  ³ University of Bonn&emsp;&emsp;&emsp;&emsp;
   ⁴ The University of Western Australia
 </p>
 

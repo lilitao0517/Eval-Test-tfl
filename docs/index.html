@@ -6,69 +6,88 @@
     <meta name="description" content="STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection">
     <meta name="keywords" content="multimodal AI, X-ray security, baggage screening">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>STING-BEE: Vision-Language Model for X-ray Baggage Security</title>
+    <title>STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="icon" href="docs/images/logo.jpeg">
+    <link rel="icon" href="./images/logo.jpeg">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        /* Header Background - Only text width */
+        .hero {
+            background-color: #e6f2ff; /* Light blue background */
+            padding: 40px 0;
+        }
+        .hero .container {
+            background-color: #e6f2ff; /* Ensure background only spans text width */
+            padding: 30px;
+            border-radius: 10px; /* Slight rounded corners */
+        }
+    </style>
 </head>
 
 <body>
-    <section class="hero" style="background-color: #e6f2ff; padding-bottom: 20px;">
-        <div class="hero-body">
-            <div class="container is-max-desktop">
-                <div class="columns is-centered">
+    <!-- Header with Limited Background -->
+    <section class="hero">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <img src="./images/logo.jpeg" alt="STING-BEE Logo" width="150">
+                    <h1 class="title is-1 publication-title">STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection</h1>
+
+                    <div class="is-size-5 publication-authors">
+                        <span>Divya Velayudhan<sup>1</sup>, Abdelfatah Ahmed<sup>1*</sup>, Mohamad Alansari<sup>1*</sup>, Neha Gour<sup>1</sup>, Abderaouf Behouch<sup>1</sup>,</span>
+                        <br>
+                        <span>Taimur Hassan<sup>2</sup>, Syed Talal Wasim<sup>3</sup>, Nabil Maalej<sup>1</sup>, Muzammal Naseer<sup>1</sup>, Juergen Gall<sup>3</sup>,</span>
+                        <br>
+                        <span>Mohammed Bennamoun<sup>4</sup>, Ernesto Damiani<sup>1</sup>, Naoufel Werghi<sup>1</sup></span>
+                    </div>
+
+                    <br>
+
+                    <div class="is-size-5 publication-authors">
+                        <span><sup>1</sup>Khalifa University of Science and Technology</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span><sup>2</sup>Abu Dhabi University</span>
+                        <br>
+                        <span><sup>3</sup>University of Bonn</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span><sup>4</sup>The University of Western Australia</span>
+                    </div>
+
+                    <br>
+
                     <div class="column has-text-centered">
-                        <img src="./images/logo.jpeg" alt="STING-BEE Logo" width="150">
-                        <h1 class="title is-1 publication-title">STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection</h1>
-                    
-                        <div class="is-size-5 publication-authors">
-                            <span>Divya Velayudhan<sup>1</sup>, Abdelfatah Ahmed<sup>1*</sup>, Mohamad Alansari<sup>1*</sup>, Neha Gour<sup>1</sup>, Abderaouf Behouch<sup>1</sup>,</span>
-                            <br>
-                            <span>Taimur Hassan<sup>2</sup>, Syed Talal Wasim<sup>3</sup>, Nabil Maalej<sup>1</sup>, Muzammal Naseer<sup>1</sup>, Juergen Gall<sup>3</sup>,</span>
-                            <br>
-                            <span>Mohammed Bennamoun<sup>4</sup>, Ernesto Damiani<sup>1</sup>, Naoufel Werghi<sup>1</sup></span>
-                        </div>
-
-                        <div class="is-size-5 publication-authors" style="margin-top: 15px;">
-                            <span><sup>1</sup>Khalifa University of Science and Technology</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span><sup>2</sup>Abu Dhabi University</span>
-                            <br>
-                            <span><sup>3</sup>University of Bonn</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span><sup>4</sup>The University of Western Australia</span>
-                        </div>
-
-                        <div class="column has-text-centered">
-                            <div class="publication-links">
-                                <span class="link-block">
-                                    <a href="https://github.com/Divs1159/STING-BEE" target="_blank"
-                                        class="external-link button is-normal is-rounded is-dark">
-                                        <span class="icon">
-                                            <i class="fab fa-github"></i>
-                                        </span>
-                                        <span>Code</span>
-                                    </a>
-                                </span>
-                                <span class="link-block">
-                                    <a href="#grand-dataset" target="_blank"
-                                        class="external-link button is-normal is-rounded is-dark">
-                                        <span class="icon">
-                                            <i class="fas fa-database"></i>
-                                        </span>
-                                        <span>Dataset</span>
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="is-size-5 publication-description" style="margin-top: 25px;">
-                            <p>
-                                <b>STING-BEE</b> is the first <b>domain-aware visual AI assistant</b> for X-ray baggage security screening. It is trained on <b>STCray</b>, the first multimodal X-ray baggage security dataset, comprising <b>46,642 image-caption paired scans</b> spanning <b>21 threat categories</b>, including <b>novel threats</b> such as <b>Improvised Explosive Devices (IEDs)</b> and <b>3D-printed firearms</b>. STING-BEE serves as a <b>unified platform</b> for <b>scene comprehension, referring threat localization, visual grounding, and visual question answering (VQA)</b>, establishing new benchmarks for <b>X-ray baggage security research</b>.
-                            </p>
+                        <div class="publication-links">
+                            <span class="link-block">
+                                <a href="https://github.com/Divs1159/STING-BEE" target="_blank"
+                                    class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="ai ai-arxiv"></i>
+                                    </span>
+                                    <span>arXiv</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a href="https://github.com/Divs1159/STING-BEE" target="_blank"
+                                    class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Code</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a href="#grand-dataset" target="_blank"
+                                    class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fas fa-database"></i>
+                                    </span>
+                                    <span>Dataset</span>
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -76,15 +95,19 @@
         </div>
     </section>
 
-    <section class="section" id="Acknowledgement">
-        <div class="container is-max-desktop content">
-            <h2 class="title">Acknowledgement</h2>
-            <p>
-                This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
-                licensed under
-                a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-                    Commons Attribution-ShareAlike 4.0 International License</a>. We are thankful to the AI research community for their open-source contributions.
-            </p>
+    <!-- Description (Outside Header Background) -->
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-three-fifths">
+                    <p class="is-size-5 has-text-justified">
+                        <b>STING-BEE</b> is the first domain-aware visual AI assistant for X-ray baggage security screening, trained using our STCray dataset—the first multimodal X-ray baggage security dataset with 46,642 image-caption paired scans spanning 21 categories, including novel threat categories such as Improvised Explosive Devices (IEDs) and 3D-printed firearms. STING-BEE provides a unified platform for scene comprehension, referring threat localization, visual grounding, and VQA, establishing new baselines for X-ray baggage security research.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
+
 </body>
+
+</html>

@@ -1,0 +1,28 @@
+title: "STING-BEE: Vision-Language Model for X-ray Baggage Security"
+description: "Towards a real-world multimodal AI system for X-ray baggage threat detection."
+baseurl: ""  # Keep empty unless using a subpath
+url: "https://divs1159.github.io/STING-BEE"  # Your GitHub Pages URL
+
+# Theme setup
+remote_theme: mmistakes/minimal-mistakes
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Navigation (Optional)
+nav:
+  - title: "Home"
+    url: /
+  - title: "Dataset"
+    url: /dataset/
+  - title: "Code"
+    url: /code/
+  - title: "ArXiv"
+    url: /arxiv/
+
+# Social media (Optional)
+author:
+  name: "Divya Velayudhan"
+  linkedin: "https://www.linkedin.com/in/divya-velayudhan-958052175"
+  github: "https://github.com/Divs1159"

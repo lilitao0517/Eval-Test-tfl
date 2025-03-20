@@ -24,7 +24,7 @@
 
 - [**STCray Dataset**](#stcray-dataset) - The first multimodal X-ray security dataset with 46,642 image-caption pairs.
 - [**STING Protocol**](#sting-protocol) - A structured approach ensuring realistic threat concealment by systematically varying threat placement and occlusion. 
-- [**STING-BEE Model**](#sting-bee-model) - The first domain-aware VLM for X-ray baggage security screening. 
+- [**STING-BEE**](#sting-bee-model) - The first domain-aware VLM for X-ray baggage security screening. 
 
 It establishes **new baselines** for **multimodal learning in X-ray baggage security**.  
 

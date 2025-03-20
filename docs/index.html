@@ -1,101 +1,139 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection">
-    <meta name="keywords" content="multimodal chatbot, X-ray security, AI vision model">
+    <meta name="description" content="STING-BEE: Vision-Language Model for X-ray Baggage Security">
+    <meta name="keywords" content="multimodal AI, X-ray security, baggage screening">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>STING-BEE: Vision-Language Model for X-ray Baggage Security</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="icon" href="docs/images/logo.jpeg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
     <section class="hero">
         <div class="hero-body">
             <div class="container is-max-desktop">
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
-                        <img src="images/logo.jpeg" alt="STING-BEE Logo" width="150">
-                        <h1 class="title is-1">STING-BEE: Vision-Language Model for X-ray Baggage Security</h1>
+                        <img src="docs/images/logo.jpeg" alt="STING-BEE Logo" width="100">
+                        <h1 class="title is-1 publication-title">STING-BEE: Vision-Language Model for X-ray Baggage Security</h1>
                         <p class="subtitle">An AI-powered system for threat detection in X-ray imagery.</p>
+
                         <div class="is-size-5 publication-authors">
-                            <p>Divya Velayudhan$^{1}$, Abdelfatah Ahmed$^{1}$*, Mohamad Alansari$^{1}$*, Neha Gour$^{1}$, Abderaouf Behouch$^{1}$,</p>
-                            <p>Taimur Hassan$^{2}$, Syed Talal Wasim$^{3}$, Nabil Maalej$^{1}$, Muzammal Naseer$^{1}$, Juergen Gall$^{3}$,</p>
-                            <p>Mohammed Bennamoun$^{4}$, Ernesto Damiani$^{1}$, Naoufel Werghi$^{1}$</p>
-                            <p>$^{1}$Khalifa University of Science and Technology, $^{2}$Abu Dhabi University,</p>
-                            <p>$^{3}$University of Bonn, $^{4}$The University of Western Australia</p>
+                            <span>Divya Velayudhan<sup>1</sup>, Abdelfatah Ahmed<sup>1*</sup>, Mohamad Alansari<sup>1*</sup>, Neha Gour<sup>1</sup>, Abderaouf Behouch<sup>1</sup>,</span>
+                            <br>
+                            <span>Taimur Hassan<sup>2</sup>, Syed Talal Wasim<sup>3</sup>, Nabil Maalej<sup>1</sup>, Muzammal Naseer<sup>1</sup>, Juergen Gall<sup>3</sup>,</span>
+                            <br>
+                            <span>Mohammed Bennamoun<sup>4</sup>, Ernesto Damiani<sup>1</sup>, Naoufel Werghi<sup>1</sup></span>
                         </div>
-                        <div class="publication-links">
-                            <a href="#" class="button is-dark"><i class="ai ai-arxiv"></i> arXiv</a>
-                            <a href="#" class="button is-dark"><i class="fab fa-github"></i> Code</a>
-                            <a href="#" class="button is-dark"><i class="fas fa-database"></i> Dataset</a>
+
+                        <div class="is-size-5 publication-authors">
+                            <span><sup>1</sup>Khalifa University of Science and Technology, Abu Dhabi</span> |
+                            <span><sup>2</sup>Abu Dhabi University</span> |
+                            <span><sup>3</sup>University of Bonn</span> |
+                            <span><sup>4</sup>The University of Western Australia</span>
                         </div>
+                        <div class="is-size-6 publication-authors">
+                            <span><sup>*</sup>Equally contributing first authors</span>
+                        </div>
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2311.15826" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href="https://github.com/Divs1159/STING-BEE" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href="#grand-dataset" target="_blank"
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fas fa-database"></i>
+                                        </span>
+                                        <span>Dataset</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <h2 class="title">Our Contributions</h2>
-            <ul>
-                <li><strong>STCray:</strong> The first X-ray baggage security dataset with 46,642 image-caption paired scans across 21 categories, created using our STING protocol.</li>
-                <li><strong>STING Protocol:</strong> A strategic method to simulate real-world baggage screening, varying item positioning, orientation, and occlusion levels.</li>
-                <li><strong>STING-BEE:</strong> A domain-aware vision-language AI assistant for X-ray baggage security, supporting scene comprehension, threat localization, visual grounding, and VQA.</li>
-                <li><strong>Benchmarking:</strong> STCray dataset has been benchmarked using various VLMs across multi-label classification, threat localization, detection, and VQA.</li>
-            </ul>
+    <!-- Contributions -->
+    <section class="section" style="background-color:#efeff081">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <h2 class="title is-3">🏆 Contributions</h2>
+                    <div class="content has-text-justified">
+                        <ul>
+                            <li><b>STCray:</b> We introduce STCray, the first X-ray baggage security dataset with 46,642 image-caption paired scans spanning 21 categories, including Improvised Explosive Devices (IEDs) and 3D-printed firearms. The dataset follows the STING protocol for realistic simulation.</li>
+                            <br>
+                            <li><b>STING Protocol:</b> We developed the Strategic Threat ConcealING (STING) protocol, systematically varying the position, angular placement, and occlusion of threats to enhance dataset diversity and realism.</li>
+                            <br>
+                            <li><b>STING-BEE:</b> A domain-aware visual AI assistant trained on instruction-following datasets derived from STCray. STING-BEE unifies scene comprehension, referring threat localization, visual grounding, and VQA.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Top Figure -->
     <section class="section">
-        <div class="container">
-            <h2 class="title">Qualitative Results</h2>
-            <div class="columns is-multiline">
-                <div class="column is-half">
-                    <figure>
-                        <img src="images/Qual2_V2.png" alt="Scene Comprehension" width="100%">
-                        <figcaption>Scene Comprehension</figcaption>
-                    </figure>
-                </div>
-                <div class="column is-half">
-                    <figure>
-                        <img src="images/Qual3_V2.png" alt="Visual Question Answering" width="100%">
-                        <figcaption>Visual Question Answering</figcaption>
-                    </figure>
-                </div>
-                <div class="column is-half">
-                    <figure>
-                        <img src="images/Qual4_V2.png" alt="Grounding" width="100%">
-                        <figcaption>Grounding</figcaption>
-                    </figure>
-                </div>
-                <div class="column is-half">
-                    <figure>
-                        <img src="images/Qual5_V2.png" alt="Threat Localization" width="100%">
-                        <figcaption>Threat Localization</figcaption>
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-six-fifths">
+                <h2 class="title is-3"><img src="docs/images/logo.jpeg" alt="STING-BEE" width="60"
+                        style="vertical-align: bottom;"> Overview of STING-BEE</h2>
+            </div>
+        </div>
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-six-fifths">
+                    <figure style="text-align: center;">
+                        <img id="teaser" width="80%" src="docs/images/TopFig1.png">
                     </figure>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <h2 class="title">Citation</h2>
-            <pre><code>
-@misc{stingbee2025,
-    title={STING-BEE: Vision-Language Model for X-ray Baggage Security},
-    author={Divya Velayudhan et al.},
-    year={2025},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV}
-}
-            </code></pre>
+    <section class="section" id="Acknowledgement">
+        <div class="container is-max-desktop content">
+            <h2 class="title">Acknowledgement</h2>
+            <p>
+                This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+                licensed under
+                a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>. We are thankful to the AI research community for their open-source contributions.
+            </p>
         </div>
     </section>
+
 </body>
+
 </html>

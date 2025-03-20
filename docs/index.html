@@ -1,108 +1,360 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <title>STING-BEE</title>
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
-    <!-- Google Fonts & Icons -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Tenor+Sans&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/7c463d890f.js" crossorigin="anonymous"></script>
+
+       <!-- Your other head content here -->
+    <!-- <script>
+     function showJsonPopup(event) {
+    event.preventDefault(); // Prevent default link behavior
+    // Fetch JSON data
+    fetch('./table_data.json')
+        .then(response => response.json())
+        .then(data => {
+            // Construct JSON content string
+            let content = '<ul>';
+            for (const [key, value] of Object.entries(data)) {
+                content += `<li><strong>${key}:</strong> ${JSON.stringify(value)}</li>`;
+            }
+            content += '</ul>';
+            // Create popup window
+            const popupWindow = window.open('', '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
+            popupWindow.document.write(`<html><head><title>JSON Data</title></head><body>${content}</body></html>`);
+        })
+        .catch(error => console.error('Error loading JSON:', error));
+}
+  </script> -->
+
+
+    <title>STING-BEE</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KT5YTF7856"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
-    
+      gtag('config', 'G-KT5YTF7856');
+    </script>  
+    <link rel="icon" type="image/x-icon" href="img/quilt1m.png">
+
     <style>
-      .header-section {
-        background-color: #e6f2ff;
-        border-radius: 15px;
-        padding: 30px;
-        text-align: center;
-      }
-      .container {
-        max-width: 900px;
-      }
-      .btndes {
-        border-radius: 20px;
-        background-color: #363636;
-        color: white;
-        text-decoration: none !important;
-        padding: 10px 15px;
-      }
-      .btndes:hover {
-        background-color:black;
-        color: white;
-      }
-      .quilt {
+        .quilt{
+        
         font-variant: small-caps;
-      }
-      .absfont {
-        font-size: 17px;
-      }
+        font-family: 'Latin Modern Roman', serif;
+    
+        }
+        .div1{
+            background-color:#f1fcec;
+            border-radius: 15px;
+        }
+
+        .div2{
+          display: block;
+          padding: 9.5px;
+          margin: 0 0 10px;
+          font-size: 14px;
+          line-height: 1.42857143;
+          word-break: break-all;
+          word-wrap: break-word;
+          color: #333;
+          background-color: #f5f5f5;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+
+        .divtext1{
+            font-size: 40px;
+        }
+
+        .font1{
+            font-family: 'Tenor Sans', sans-serif;
+        }
+
+        .font2{
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .btndes{
+          border-radius: 20px;
+          background-color: #363636;
+          color: white;
+          text-decoration: none !important;
+        }
+
+        .btndes:hover {
+          background-color:black;
+          color: white;
+        }
+
+        .navsize1{
+            font-size: 25px;
+        }
+        .navsize{
+            font-size: 18px;;
+        }
+        .absfont{
+            font-size: 17px;;
+        }
+
+        .navcolor{
+            background-color: #363636;
+        }
+
+        .navfontc{
+            color: white;
+        }
+
+        .margin-left{
+            margin-left: 10px;
+        }
+
+        .size2{
+            font-size: 23px;
+        }
+
+        .datalink{
+            background-color:#E2E0E4;
+            border-radius: 10px;
+
+        }
+
+        .margin{
+            margin-left: 10px;
+            font-size: 15px;
+        }
+
+        .card {
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .card {
+          margin-top: 10px;
+          box-sizing: border-box;
+          border-radius: 2px;
+          background-clip: padding-box;
+          min-height:200px;
+        }
+
+        .card span.card-title {
+          color: #fff;
+          font-size: 24px;
+          font-weight: 300;
+          text-transform: uppercase;
+        }
+
+        .card .card-image {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .card .card-image img {
+          border-radius: 2px 2px 0 0;
+          background-clip: padding-box;
+          position: relative;
+          z-index: -1;
+        }
+
+        .card .card-image span.card-title {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          padding: 16px;
+        }
+
+        .card .card-content {
+          padding: 10px;
+          border-radius: 0 0 2px 2px;
+          background-clip: padding-box;
+          box-sizing: border-box;
+        }
+
+        .card .card-content p {
+          margin: 0;
+          color: inherit;
+        }
+
+        .card .card-content span.card-title {
+          line-height: 48px;
+        }
+
+        .card .card-action {
+          border-top: 1px solid rgba(160, 160, 160, 0.2);
+          padding: 16px;
+        }
+
+        .card .card-action a {
+          color: #ffab40;
+          margin-right: 16px;
+          transition: color 0.3s ease;
+          text-transform: uppercase;
+        }
+
+        .card .card-action a:hover {
+          color: #ffd8a6;
+          text-decoration: none;
+        }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">STING-BEE</a>
-        </div>
-        <ul class="nav navbar-nav">
+  <nav class="navbar navbar-inverse navcolor">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand font1 navsize1" href="https://divs1159.github.io/STING-BEE"><span class="quilt">STING-BEE</span></a> 
+        <!-- https://cplip.github.io/ -->
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navsize">
+          <!-- <li><a href="https://arxiv.org/abs/2306.11207">Paper</a></li> -->
+          <!-- <li><a href="#dataset">Dictionary</a></li> -->
           <li><a href="#result">Results</a></li>
+          <!-- <li><a href="#author">Authors</a></li> -->
           <li><a href="#cite">Citation</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
+    <div class="container div1" align="center"> 
+      <h1 class="divtext1 font1"><b><span class="quilt"><span class="quilt"><span class="quilt">DyCON</span></span></span>: Dynamic Uncertainty-aware Consistency and Contrastive Learning for Semi-supervised Medical Image Segmentation <br><br> <span><h2>CVPR 2025</h2></span> </b></h1> <br>
+      
+    <h3 class="font2">
+    Divya Velayudhan, Abdelfatah Ahmed, Mohamad Alansari, Neha Gour, Abderaouf Behouch, Taimur Hassan, Syed Talal Wasim, Nabil Maalej, Muzammal Naseer, Juergen Gall, Mohammed Bennamoun, Ernesto Damiani, Naoufel Werghi
+</h3>
 
-    <div class="container header-section">
-      <img src="./images/logo.jpeg" height="120">
-      <h1><b>STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection</b></h1>
-      <h3>Divya Velayudhan, Abdelfatah Ahmed, Mohamad Alansari, Neha Gour, Abderaouf Behouch, Taimur Hassan, Syed Talal Wasim, Nabil Maalej, Muzammal Naseer, Juergen Gall, Mohammed Bennamoun, Ernesto Damiani, Naoufel Werghi</h3>
-      <p>¹ Khalifa University of Science and Technology &emsp;&emsp;² Abu Dhabi University</p>
-      <p>³ University of Bonn &emsp;&emsp;⁴ The University of Western Australia</p>
-      <br>
-      <a class="btn btndes" href="https://github.com/Divs1159/STING-BEE" target="_blank">Code</a>
-      <a class="btn btndes" href="https://arxiv.org/abs/2311.15826" target="_blank">arXiv</a>
-      <a class="btn btndes" href="#grand-dataset">Dataset</a>
-    </div>
-    
-    <div class="container">
-      <h2>Abstract</h2>
+<p>
+    Department of Computer Science & C2PS*, Khalifa University of Science and Technology, Abu Dhabi, UAE<br>
+</p>
+      <a class="btn  navsize margin-left btndes" href="https://github.com/CVMI-KU/DyCON" role="button"> Code  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 496 512"><style>svg{fill:#fdfcfc}</style><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span></a>
+      <a class="btn  navsize margin-left btndes ai ai-arxiv" href="https://github.com/Machine-Vision-and-Intelligence/DyCON" role="button"> arXiv  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.<path d="M160 32c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H160zM396 138.7l96 144c4.9 7.4 5.4 16.8 1.2 24.6S480.9 320 472 320H328 280 200c-9.2 0-17.6-5.3-21.6-13.6s-2.9-18.2 2.9-25.4l64-80c4.6-5.7 11.4-9 18.7-9s14.2 3.3 18.7 9l17.3 21.6 56-84C360.5 132 368 128 376 128s15.5 4 20 10.7zM192 128a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120V344c0 75.1 60.9 136 136 136H456c13.3 0 24-10.7 24-24s-10.7-24-24-24H136c-48.6 0-88-39.4-88-88V120z"/></svg></a>
+      <br><br>
+  </div>
+  <br><br>
+  <div class="container">
+       <br>
       <p class="absfont">
-        <b>STING-BEE</b> is the first <b>domain-aware visual AI assistant</b> for X-ray baggage security screening, trained using the <b>STCray dataset</b>, a multimodal dataset with <b>46,642 image-caption paired scans</b> spanning <b>21 threat categories</b>. STING-BEE unifies <b>scene comprehension, referring threat localization, visual grounding, and visual question answering (VQA)</b>, establishing new benchmarks for X-ray baggage security research.
+        STING-BEE is the first domain-aware visual AI assistant for X-ray baggage security screening, trained using our STCray dataset, the first multimodal X-ray baggage security dataset with 46,642 image-caption paired scans spanning 21 categories, including novel threat categories such as Improvised Explosive Devices (IEDs) and 3D-printed firearms. STING-BEE provides a unified platform for scene comprehension, referring threat localization, visual grounding, and VQA, establishing new baselines for X-ray baggage security research. 
       </p>
-    </div>
-    
-    <div class="container" id="result">
-      <h2>Results</h2>
-      <figure>
-        <img class="img-fluid" src="./images/results.png" style="max-width: 90%;" alt="Results">
-        <figcaption><b>Figure:</b> Performance of STING-BEE in various X-ray baggage security tasks.</figcaption>
-      </figure>
-    </div>
-    
-    <div class="container" id="cite">
-      <h2>Citation</h2>
-      <pre class="absfont">@article{velayudhan2025stingbee,
-  title={STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection},
-  author={Divya Velayudhan, Abdelfatah Ahmed, Mohamad Alansari, Neha Gour, Abderaouf Behouch, etc.},
-  journal={CVPR},
-  year={2025}
-}</pre>
-    </div>
-    
-    <div class="container" id="contact">
-      <h2>Contact</h2>
-      <p>For inquiries, please contact <b>Divya Velayudhan</b> at <a href="mailto:divya@example.com">divya@example.com</a></p>
-    </div>
+  </div>
+  <br><br>
+  <div class="container">
+      <h1>STING-BEE: Training and Evaluation Pipeline</h1> <br> 
+      <div class="text-center">
+          <img class="img-fluid" src="./images/STCray_Proposed_CVPR_V4.png" style="max-width: 99%;" alt="...">
+        </div> <br><br> 
+      <p class="absfont">
+We train STING-BEE in a multi-stage process to build domain expertise and grounding capabilities. For training STING-BEE for X-ray security screening, we created an instruction-following dataset by creating question-answer pairs for scans in our STCray dataset. These question-answer pairs follow structured templates specific to the language-based vision tasks. STING-BEE introduces specialized task-identification tokens to differentiate between diverse vision-language tasks demanding different levels of spatial awareness.
+</p>
+  </div>
+      <br> 
+      <div class="container" id="result">
+      <h1>Results</h1> <br>
+      <p class="absfont">  
+        Qualitative examples shown below highlight STING-BEE’s ability to excel across the key vision-language tasks, including scene comprehension,
+        referring threat localization, visual grounding, and VQA, especially across diverse datasets, including STCray, SIXray, PIDray,
+        and Compass XP, emphasizing its cross-domain generalization despite scanner variations.
+        <br> <br>
+      </p>
+      </div>
+      <style>
+        figcaption {
+            font-size: 1.2em; /* Adjust the font size as needed */
+            /* font-weight: bold; */
+            margin-top: 12px;
+        }
+      </style>
+        <div class="text-center">
+          <!-- Figure 1: Performance Comparison -->
+          <figure>
+              <img class="img-fluid" src="DyCON_results1.png" style="max-width: 50%;" alt="DyCON Performance Comparison">
+              <figcaption>
+                  <p class="absfont"><b>Figure 1:</b> Quantitative comparison of DyCON integrated into Mean-Teacher (MT) and Co-Training (CT) frameworks<br> using 10% labeled data on ISLES'22 and BraTS'19 datasets.</p>
+              </figcaption>
+          </figure>
+      
+          <br><br><br>
+      
+          <!-- Figure 2: Qualitative Segmentation Results -->
+          <figure>
+              <img class="img-fluid" src="dycon_seg_results.jpg" style="max-width: 50%" alt="DyCON Segmentation Results">
+              <figcaption>
+                  <p class="absfont"><b>Figure 2:</b> Qualitative segmentation results showing DyCON's improved accuracy in identifying lesions and tumors compared to existing methods.</p>
+              </figcaption>
+          </figure>
+      
+          <br><br><br>
+      
+          <!-- Figure 3: Uncertainty Maps -->
+          <figure>
+              <img class="img-fluid" src="dycon_uncertainty.jpg" style="max-width: 50%" alt="DyCON Uncertainty Maps">
+              <figcaption>
+                  <p class="absfont"><b>Figure 3:</b> Evolution of uncertainty maps generated by UnCL loss, demonstrating progressive refinement of predictions over training epochs.</p>
+              </figcaption>
+          </figure>
+      </div>
+      
+      <br><br>
+      
+  <br><br>
+  <div class="container" id="cite">
+    <h1>Citation</h1> <br> 
+    If you use the findings of this research in your work, please cite our paper:
+    <br>
+    <pre class="div2">@article{velayudhan2025stingbe,
+      title={STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection},
+      author={Divya Velayudhan, Abdelfatah Ahmed, Mohamad Alansari, Neha Gour, Abderaouf Behouch, Taimur Hassan, Syed Talal Wasim, Nabil Maalej, Muzammal Naseer, Juergen Gall, Mohammed Bennamoun, Ernesto Damiani, Naoufel Werghi}, 
+      booktitle={CVPR},
+      year={2025}<!-- journal={arXiv preprint arXiv:2306.11207}, -->
+    }</pre>
+  </div>
+  <br><br>
+  <div class="container" id="contact">
+    <h1>Contact</h1>
+    <br>
+    <p class="absfont">
+      For any inquiries regarding STING-BEE, please feel free to contact
+      <strong>Divya Velayudhan</strong> at 
+      <a href="mailto:divya.velayudhan@ku.ac.ae" style="color: #007bff; text-decoration: underline; font-weight: bold;">
+        divya.velayudhan@ku.ac.ae
+      </a>
+    </p>
+    <br>
+  </div>
+  
+  <div class="row align-items-center" >
+      <center>    
+      <div class="col thumb d-flex align-items-center">
+          <img class="img-fluid" src="img/img3.png" style="max-width: 30%;" alt="">
+      </div>
+      </center>
+
+  </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+  
+ 
+
   </body>
 </html>

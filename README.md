@@ -1,6 +1,14 @@
-# <img src="./images/logo.jpeg" height="150"> STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection [CVPR-2025]
+# <img src="./images/logo.jpeg" height="150"> STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection [ CVPR-2025 ]
 
-#### **[Divya Velayudhan¹](https://www.linkedin.com/in/divya-velayudhan-958052175), [Abdelfatah Ahmed¹], Mohamad Alansari¹, Neha Gour¹, Abderaouf Behouch¹, Taimur Hassan², Syed Talal Wasim³, Nabil Maalej¹,[Muzammal Naseer¹](https://muzammal-naseer.com/), Juergen Gall³, Mohammed Bennamoun⁴, Ernesto Damiani¹, Naoufel Werghi¹**  
+<p align="center">
+  <strong>
+    <a href="https://www.linkedin.com/in/divya-velayudhan-958052175">Divya Velayudhan¹</a>,  
+    Abdelfatah Ahmed¹, Mohamad Alansari¹, Neha Gour¹, Abderaouf Behouch¹,  
+    Taimur Hassan², Syed Talal Wasim³, Nabil Maalej¹,  
+    <a href="https://muzammal-naseer.com/">Muzammal Naseer¹</a>, Juergen Gall³,  
+    Mohammed Bennamoun⁴, Ernesto Damiani¹, Naoufel Werghi¹  
+  </strong>
+</p>
   
 
 <p align="center">

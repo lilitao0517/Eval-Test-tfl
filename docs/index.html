@@ -26,12 +26,12 @@
             // Construct JSON content string
             let content = '<ul>';
             for (const [key, value] of Object.entries(data)) {
-                content += `<li><strong>${key}:</strong> ${JSON.stringify(value)}</li>`;
+                content += <li><strong>${key}:</strong> ${JSON.stringify(value)}</li>;
             }
             content += '</ul>';
             // Create popup window
             const popupWindow = window.open('', '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
-            popupWindow.document.write(`<html><head><title>JSON Data</title></head><body>${content}</body></html>`);
+            popupWindow.document.write(<html><head><title>JSON Data</title></head><body>${content}</body></html>);
         })
         .catch(error => console.error('Error loading JSON:', error));
 }
@@ -58,7 +58,7 @@
     
         }
         .div1{
-            background-color:#AFEEEE; 
+            background-color:#9ad9ec; 
             border-radius: 15px;
         }
 
@@ -212,10 +212,26 @@
           color: #ffd8a6;
           text-decoration: none;
         }
+        img:hover {
+          transform: scale(1.02);
+          transition: all 0.3s ease-in-out;
+        }
+        .navcolor {
+          background-color: #363636; /* Dark background color */
+          border: none; /* Remove border */
+        }
+
+        .navfontc {
+          color: white !important; /* Ensure text is white */
+        }
+
+        .navfontc:hover {
+          color: #ff7675 !important; /* Light red on hover */
+        }
     </style>
   </head>
   <body>
-  <nav class="navbar navbar-inverse navcolor">
+  <nav class="navbar navbar-inverse navbar-fixed-top navcolor">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -224,7 +240,7 @@
           <span class="icon-bar"></span>                        
         </button>
         <a class="navbar-brand font1 navsize1" href="https://divs1159.github.io/STING-BEE"><span class="quilt">STING-BEE</span></a> 
-        <!-- https://cplip.github.io/ -->
+        
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navsize">
@@ -239,7 +255,17 @@
     </div>
   </nav>
     <div class="container div1" align="center"> 
-      <img src="./images/logo.jpeg" alt="STING-BEE Logo" style="max-width: 150px; margin-top: 5px; margin-bottom: 10px;"> 
+      <div class="text-center">
+        <a href="javascript:void(0);" onclick="openModal('logoModal', 'logoModalImg', this)">
+          <img class="img-fluid" src="./images/logo.jpeg" alt="STING-BEE Logo" style="max-width: 150px; margin-top: 45px; margin-bottom: 10px;">
+        </a>
+      </div>
+      
+      <!-- Modal for Logo -->
+      <div id="logoModal" class="modal">
+        <span class="close" onclick="closeModal('logoModal')">&times;</span>
+        <img class="modal-content" id="logoModalImg">
+      </div> 
       <h1 class="divtext1 font1">
         <b><span class="quilt">STING-BEE</span>: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection 
         &emsp; <span class="cvpr-text">[CVPR 2025]</span></b> </h1>
@@ -296,93 +322,264 @@
     </p>
 </div>
 
-
 <br><br>
 
     <!-- STCray Dataset Section -->
 <div class="container" id="stcray">
-    <h1>📌 STCray Dataset</h1> <br> 
-    <p class="absfont">
-    STCray is the first <b>multimodal X-ray baggage security dataset</b>, featuring <b>46,642 image-caption paired scans</b> spanning <b>21 threat categories</b>. It includes real-world threat concealment scenarios, ensuring diverse and representative data for X-ray security AI research.
-    The dataset features a wide spectrum of threat categories, ranging from sharp metallic threats to flammable materials, including Explosive, Gun, 3D-printed Gun, Knife, Cutter, Blade, Shaving Razor, Lighter, Syringe, Battery,
-      Nail Cutter, Other Sharp Item, Powerbank, Scissors, Hammer, Pliers, Wrench, Screwdriver, Handcuffs, and Bullet. Unlike existing datasets that fail to capture real-world threats adequately,
-      STCray emphasizes sophisticated prohibited items, such as <b>IEDs</b> and <b>3D-printed firearms</b>, alongside <b>realistic concealment scenarios</b> that mimic smuggling tactics.
-    </p>
-    <br><br>
-    <!-- Full-Width Image -->
-    <div class="text-center">
-        <img class="img-fluid img-responsive" src="./images/TopFig1.png" style="max-width: 50%;" alt="STCray Characteristics">
-    </div> 
-    <br><br>
+  <h1>📌 STCray Dataset</h1> <br> 
+  <p class="absfont text-justify">
+    <b>STCray</b> is the first <b>multimodal X-ray baggage security dataset</b>, featuring <b>46,642 image-caption paired scans</b> spanning <b>21 threat categories</b>.
+     It includes real-world threat concealment scenarios, ensuring diverse and representative data for X-ray security AI research.
+  </p>
+  <div class="row">
+      <!-- Left Column: Image -->
+<div class="col-md-6 text-center">
+  <a href="javascript:void(0);" onclick="openModal('topFig1Modal', 'topFig1Img', this)">
+    <img class="img-fluid img-responsive" src="./images/TopFig1.png" style="max-width: 100%;" alt="STCray Characteristics">
+  </a>
+</div>
 
-    <!-- Two Images Side by Side -->
-    <div class="row">
-        <div class="col-md-6 text-center">
-            <img class="img-fluid" src="./images/Data_distfinal.png" style="max-width: 60%;" alt="STCray Data Distribution">
-        </div>
-        <div class="col-md-6 text-center">
-            <img class="img-fluid" src="./images/Table_dist.png" style="max-width: 40%;" alt="STCray Train-Test Table summary">
-        </div>
-    </div>
-    <br><br>
+<!-- Modal for TopFig1 -->
+<div id="topFig1Modal" class="modal">
+  <span class="close" onclick="closeModal('topFig1Modal')">&times;</span>
+  <img class="modal-content" id="topFig1Img">
+</div>
+
+      <!-- Right Column: Text -->
+      <div class="col-md-6">
+          <p class="absfont text-justify">
+              The dataset features a wide spectrum of threat categories, ranging from sharp metallic threats to flammable materials, including <i>Explosive</i>, <i>Gun</i>, <i>3D-printed Gun</i>, <i>Knife</i>, <i>Cutter</i>, <i>Blade</i>, <i>Shaving Razor</i>, <i>Lighter</i>, <i>Syringe</i>, <i>Battery</i>,
+              <i>Nail Cutter</i>, <i>Other Sharp Item</i>, <i>Powerbank</i>, <i>Scissors</i>, <i>Hammer</i>, <i>Pliers</i>, <i>Wrench</i>, <i>Screwdriver</i>, <i>Handcuffs</i>, and <i>Bullet</i>. Unlike existing datasets that fail to capture real-world threats adequately,
+              STCray emphasizes sophisticated prohibited items, such as <b>IEDs</b> and <b>3D-printed firearms</b>, alongside <b>realistic concealment scenarios</b> that mimic smuggling tactics.
+          </p>
+      </div>
+  </div>
+  <br><br>
+ 
+  <!-- Statistical Distribution Section -->
+<div class="row">
+  
+  <h3><u>Statistical Distribution</u></h3> <br>
+  <p class="absfont text-justify">
+    <b>STCray dataset</b> is comprehensively annotated, featuring 46,642 samples with detailed descriptions, bounding boxes, and pixel-level labels. 
+    The dataset comprises 30,044 training and 16,598 test images. It includes <b>57,218 threat instances across 20 threat categories</b>.
+  </p>
+
+  <div class="col-md-6 text-center">
+      <figure>
+          <img class="img-fluid" src="./images/Data_distfinal.png" style="max-width: 85%; border-radius: 8px; box-shadow: 0px 2px 8px rgba(0,0,0,0.1);" alt="STCray Data Distribution">
+          <figcaption class="absfont"><i>Instance-wise threat distribution in STCray.</i></figcaption>
+      </figure>
+  </div>
+
+  <div class="col-md-6 text-center">
+      <figure>
+          <img class="img-fluid" src="./images/Table_dist.png" style="max-width: 50%; border-radius: 8px; box-shadow: 0px 2px 8px rgba(0,0,0,0.1);" alt="STCray Train-Test Table summary">
+          <figcaption class="absfont"><i>Train-Test summary in STCray dataset.</i></figcaption>
+      </figure>
+  </div>
+
+  <p class="absfont text-justify">
+    Figure shows instance-wise distribution of threat categories in the STCray dataset. Left: Radial plot depicting overall counts; 
+    Right: Table summary across train and test sets. STCray contains 36,438 single-threat images and 9,255 scans with multiple threats.
+  </p>
 </div>
     <br><br>
-    
-  <div class="container">
-      <h1>STING-BEE: Training and Evaluation Pipeline</h1> <br> 
-      <div class="text-center">
-          <img class="img-fluid" src="./images/STCray_Proposed_CVPR_V4.png" style="max-width: 99%;" alt="...">
-        </div> <br><br> 
-      <p class="absfont">
-We train STING-BEE in a multi-stage process to build domain expertise and grounding capabilities. For training STING-BEE for X-ray security screening, we created an instruction-following dataset by creating question-answer pairs for scans in our STCray dataset. These question-answer pairs follow structured templates specific to the language-based vision tasks. STING-BEE introduces specialized task-identification tokens to differentiate between diverse vision-language tasks demanding different levels of spatial awareness.
-</p>
+
+  <hr style="border: 0; height: 1px; background: #d3d3d3; margin: 30px 0;">    
+
+  <!-- STING Protocol Section -->
+<div class="container" id="sting-protocol">
+  <h1>📌 STING Protocol</h1> <br> 
+
+  <p class="absfont text-justify">
+    <b>STING (Strategic Threat Concealing) Protocol</b> is a structured approach designed to systematically vary the position, orientation, and concealment of threat objects in X-ray baggage scans. 
+    This protocol ensures a **diverse and realistic dataset**, simulating real-world smuggling tactics used in aviation security.
+  </p>
+
+  <div class="row">
+      <!-- Left Column: Image -->
+      <!-- STING Protocol Image (Left Column) -->
+<div class="col-md-6 text-center">
+  <a href="./images/DataColl_4.png" target="_blank">
+      <img class="img-fluid img-responsive" src="./images/DataColl_4.png" style="max-width: 100%;" alt="STING Protocol Illustration">
+  </a>
+</div>
+
+<!-- Modal for STING Protocol Image -->
+<div id="stingModal" class="modal">
+  <span class="close" onclick="closeModal('stingModal')">&times;</span>
+  <img class="modal-content" id="stingModalImg">
+</div>
+
+      <!-- Right Column: Text -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center h-100">
+        <div class="text-wrapper">
+            <p class="absfont text-justify">
+              <br></br><br></br><br></br>
+
+                The STING protocol underpins the STCray dataset, categorizing clutter into four levels—Limited, Medium, Heavy, and 
+                Extreme—progressively increasing occlusions and distractions. Concealment sublevels further diversify scenarios, ranging from 
+                low-density (e.g., organic items like books) to extreme configurations such as metallic grids and multi-layered superimposed materials. 
+                These concealments are further diversified by systematically varying the position and orientation of the threat, distorting threat appearances.
+            </p>
+        </div>
+    </div>
   </div>
-      <br> 
-      <div class="container" id="result">
-      <h1>Results</h1> <br>
-      <p class="absfont">  
-        Qualitative examples shown below highlight STING-BEE’s ability to excel across the key vision-language tasks, including scene comprehension,
-        referring threat localization, visual grounding, and VQA, especially across diverse datasets, including STCray, SIXray, PIDray,
-        and Compass XP, emphasizing its cross-domain generalization despite scanner variations.
-        <br> <br>
-      </p>
+  
+  <!-- Concealment Strategy Breakdown -->
+  <div class="row">
+    <h3><u>Caption Generation Pipeline</u></h3> <br>
+    <p class="absfont text-justify">
+      The caption generation process leverages prior knowledge of threat-specific metadata and synonym sets to dynamically construct captions 
+      for each baggage scan collected using the STING Protocol. The matadata includes the baggage type, threat category, threat location and pose
+       (e.g., corner flat), followed by levels of concealment and clutter, and additional normal items.
+    </p><br></br>
+
+    <!-- Full-Width Image with Lightbox -->
+    <div class="text-center">
+      <a href="javascript:void(0);" onclick="openModal('captionModal', 'captionModalImg', this)">
+          <img class="img-fluid img-responsive" src="./images/CaptionGen2.png" style="max-width: 100%;" alt="STING Caption Generation">
+      </a>
+  </div>
+  
+  <!-- Modal for Caption Generation Image -->
+  <div id="captionModal" class="modal">
+      <span class="close" onclick="closeModal('captionModal')">&times;</span>
+      <img class="modal-content" id="captionModalImg">
+  </div> 
       </div>
-      <style>
-        figcaption {
-            font-size: 1.2em; /* Adjust the font size as needed */
-            /* font-weight: bold; */
-            margin-top: 12px;
-        }
-      </style>
+
+  <br><br>
+  <hr style="border: 0; height: 1px; background: #d3d3d3; margin: 30px 0;">    
+
+</div>
+    
+  <div class="container" id = "stingbee">
+      <h1>📌 STING-BEE: Training and Evaluation Pipeline</h1> <br> 
+      <div class="text-center">
+        <a href="javascript:void(0);" onclick="openModal('stingBeeModal', 'stingBeeModalImg', this)">
+          <img class="img-fluid" src="./images/STCray_Proposed_CVPR_V4.png" style="max-width: 99%;" alt="STING-BEE Training and Evaluation Pipeline">
+        </a>
+      </div>
+      
+      <!-- Modal for STCray_Proposed_CVPR_V4 -->
+      <div id="stingBeeModal" class="modal">
+        <span class="close" onclick="closeModal('stingBeeModal')">&times;</span>
+        <img class="modal-content" id="stingBeeModalImg">
+      </div> <br><br> 
+      <p class="absfont">
+We train <b>STING-BEE</b> in a multi-stage process to build domain expertise and grounding capabilities. For training STING-BEE for X-ray security screening, we created an instruction-following 
+dataset by creating question-answer pairs for scans in our STCray dataset. These question-answer pairs follow structured templates specific to the language-based vision tasks. 
+STING-BEE introduces <b>specialized task-identification tokens</b> to differentiate between diverse vision-language tasks demanding different levels of spatial awareness.
+</p>
+  </div> <br> 
+  <hr style="border: 0; height: 1px; background: #d3d3d3; margin: 30px 0;">  
+
+     <div class="container" id="result">
+        <h1>📌 Results</h1> <br> 
+        <p class="absfont">
+            Qualitative examples below showcasing the capabilities of <b>STING-BEE</b> across multiple vision-language tasks, including Scene Comprehension, Referring Threat Localization, Visual Grounding, and Visual Question Answering (VQA). 
+            The examples span **four X-ray security datasets**— <b>STCray, SIXray, PIDray, and Compass XP</b>, demonstrating STING-BEE’s cross-domain generalization despite scanner variations.
+        </p>
+        <br><br>
+        <p class="absfont text-justify">Qualitative examples showcasing the capabilities of STING-BEE across diverse vision-language tasks: 
+          Scene Comprehension (d, e, f, i), Referring Threat Localization (a, j), Visual Grounding (c, g), and Visual Question Answering (b, h). 
+          These examples span four X-ray security datasets— STCray, SIXray, PIDray, and Compass XP — illustrating STING-BEE’s robustness and adaptability to diverse X-ray imagery.</p>
+        <!-- Figure 1: STING-BEE's Vision-Language Tasks -->
         <div class="text-center">
-          <!-- Figure 1: Performance Comparison -->
-          <figure>
-              <img class="img-fluid" src="DyCON_results1.png" style="max-width: 50%;" alt="DyCON Performance Comparison">
-              <figcaption>
-                  <p class="absfont"><b>Figure 1:</b> Quantitative comparison of DyCON integrated into Mean-Teacher (MT) and Co-Training (CT) frameworks<br> using 10% labeled data on ISLES'22 and BraTS'19 datasets.</p>
-              </figcaption>
-          </figure>
-      
-          <br><br><br>
-      
-          <!-- Figure 2: Qualitative Segmentation Results -->
-          <figure>
-              <img class="img-fluid" src="dycon_seg_results.jpg" style="max-width: 50%" alt="DyCON Segmentation Results">
-              <figcaption>
-                  <p class="absfont"><b>Figure 2:</b> Qualitative segmentation results showing DyCON's improved accuracy in identifying lesions and tumors compared to existing methods.</p>
-              </figcaption>
-          </figure>
-      
-          <br><br><br>
-      
-          <!-- Figure 3: Uncertainty Maps -->
-          <figure>
-              <img class="img-fluid" src="dycon_uncertainty.jpg" style="max-width: 50%" alt="DyCON Uncertainty Maps">
-              <figcaption>
-                  <p class="absfont"><b>Figure 3:</b> Evolution of uncertainty maps generated by UnCL loss, demonstrating progressive refinement of predictions over training epochs.</p>
-              </figcaption>
-          </figure>
-      </div>
+            <a href="javascript:void(0);" onclick="openModal('fig23Modal', 'fig23Img', this)">
+                <img class="img-fluid" src="./images/Qual2_V2.png" style="max-width: 75%;" alt="STING-BEE Vision-Language Tasks">
+            </a>
+            
+        </div><br><br>
+    
+        <!-- Modal for Figure 23 -->
+        <div id="fig23Modal" class="modal">
+            <span class="close" onclick="closeModal('fig23Modal')">&times;</span>
+            <img class="modal-content" id="fig23Img">
+        </div>
+        <br><br>
+    
+        <!-- Figure 2: Threat Classification Across Different Scenarios -->
+        <div class="row">
+          <h3><u>Scene Comprehension</u></h3> <br>
+          <p class="absfont text-justify">The images display diverse objects such as guns, pliers, wrenches, power banks, scissors, and 
+            hammers across different scenarios, highlighting the robustness of STING-BEE in understanding and categorizing threat items within X-ray imagery.</p>
+            <div class="text-center">
+            <a href="javascript:void(0);" onclick="openModal('fig24Modal', 'fig24Img', this)">
+                <img class="img-fluid" src="./images/Qual3_V2.png" style="max-width: 75%;" alt="STING-BEE Scene Comprehension">
+            </a>
+          </div>
+            
+        </div>
+    
+        <!-- Modal for Figure 24 -->
+        <div id="fig24Modal" class="modal">
+            <span class="close" onclick="closeModal('fig24Modal')">&times;</span>
+            <img class="modal-content" id="fig24Img">
+        </div>
+        <br><br>
+    
+        <!-- Figure 3: Visual Grounding Examples -->
+        <div class="row">
+          <h3><u>Visual Grounding</u></h3> <br>
+          <p class="absfont text-justify">Visual grounding qualitative examples demonstrating STING-BEE’s ability to 
+            describe and localize specific threat items in X-ray baggage scans. The system effectively identifies and highlights objects such as guns, handcuffs, and bullets within diverse scenarios.</p>
+          <div class="text-center">
+            <a href="javascript:void(0);" onclick="openModal('fig25Modal', 'fig25Img', this)">
+                <img class="img-fluid" src="./images/Qual4_V2.png" style="max-width: 75%;" alt="STING-BEE Visual Grounding">
+            </a>
+           </div> 
+        </div>
+    
+        <!-- Modal for Figure 25 -->
+        <div id="fig25Modal" class="modal">
+            <span class="close" onclick="closeModal('fig25Modal')">&times;</span>
+            <img class="modal-content" id="fig25Img">
+        </div>
+        <br><br>
+    
+        <!-- Figure 4: Referral Threat Localization -->
+        <div class="row">
+          <h3><u>Referral Threat Localization</u></h3> <br>
+          <p class="absfont text-justify">Referral threat localization examples showcasing STING-BEE’s precision in identifying and localizing specific threat items in X-ray baggage scans. 
+            The system demonstrates its capability to locate different contraband objects, utilizing bounding box coordinates to highlight their positions within the scans.</p>
+        <div class="text-center">
+            <a href="javascript:void(0);" onclick="openModal('fig26Modal', 'fig26Img', this)">
+                <img class="img-fluid" src="./images/Qual5_V2.png" style="max-width: 85%;" alt="STING-BEE Referral Threat Localization">
+            </a>
+           </div>
+        </div>
+    
+        <!-- Modal for Figure 26 -->
+        <div id="fig26Modal" class="modal">
+            <span class="close" onclick="closeModal('fig26Modal')">&times;</span>
+            <img class="modal-content" id="fig26Img">
+        </div>
+        <br><br>
+    
+        <!-- Figure 5: Visual Question Answering (VQA) -->
+        <div class="row">
+          <h3><u>Visual Question Answering</u></h3> <br>
+          <p class="absfont text-justify">Qualitative examples showcasing the capabilities of STING-BEE in Visual Question Answering (VQA) across diverse question types: 
+            (a) Instance Identification, Instance Counting, and Misleading Question resolution, (b) Instance Location and Instance Attribute recognition, and 
+            (c) Instance Interaction and Complex Visual Reasoning.</p>
+        <div class="text-center">
+            <a href="javascript:void(0);" onclick="openModal('fig27Modal', 'fig27Img', this)">
+                <img class="img-fluid" src="./images/Qual6_V2.png" style="max-width: 85%;" alt="STING-BEE VQA Examples">
+            </a>
+          </div>
+        </div>
+    
+        <!-- Modal for Figure 27 -->
+        <div id="fig27Modal" class="modal">
+            <span class="close" onclick="closeModal('fig27Modal')">&times;</span>
+            <img class="modal-content" id="fig27Img">
+        </div>
+        <br><br>
+    </div>
+    
       
       <br><br>
       
@@ -391,10 +588,10 @@ We train STING-BEE in a multi-stage process to build domain expertise and ground
     <h1>Citation</h1> <br> 
     If you use the findings of this research in your work, please cite our paper:
     <br>
-    <pre class="div2">@article{velayudhan2025stingbe,
+    <pre class="div2">@article{velayudhan2025stingbee,
       title={STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection},
       author={Divya Velayudhan, Abdelfatah Ahmed, Mohamad Alansari, Neha Gour, Abderaouf Behouch, Taimur Hassan, Syed Talal Wasim, Nabil Maalej, Muzammal Naseer, Juergen Gall, Mohammed Bennamoun, Ernesto Damiani, Naoufel Werghi}, 
-      booktitle={CVPR},
+      booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
       year={2025}<!-- journal={arXiv preprint arXiv:2306.11207}, -->
     }</pre>
   </div>
@@ -420,7 +617,88 @@ We train STING-BEE in a multi-stage process to build domain expertise and ground
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
   
- 
+    <style>
+      /* Styling for the Lightbox Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px; /* Add some padding to prevent the image from touching the edges */
+}
+
+/* Center the image properly */
+.modal-content {
+    max-width: 90vw; /* Ensures the image never exceeds the viewport width */
+    max-height: 90vh; /* Ensures the image never exceeds the viewport height */
+    object-fit: contain; /* Keeps the aspect ratio */
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow for better visibility */
+    transition: transform 0.2s ease-in-out; /* Smooth zoom effect */
+}
+
+/* Close button styling */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover {
+    color: #ff7675; /* Light red on hover */
+}
+    </style>
+    
+    <script>
+      // Ensure all modals are hidden on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".modal").forEach(function (modal) {
+          modal.style.display = "none";
+        });
+      });
+    
+      function openModal(modalId, imgId, element) {
+        var modal = document.getElementById(modalId);
+        var modalImg = document.getElementById(imgId);
+    
+        // Show modal first to prevent repositioning after load
+        modal.style.display = "block";
+    
+        // Temporarily hide image before setting source
+        modalImg.style.visibility = "hidden";
+    
+        // Set the image source
+        modalImg.src = element.querySelector("img").src;
+    
+        // Wait for the image to load, then make it visible
+        modalImg.onload = function () {
+          modalImg.style.visibility = "visible";
+        };
+      }
+    
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+      }
+    
+      // Close modal when clicking outside the image
+      document.addEventListener("click", function (event) {
+        document.querySelectorAll(".modal").forEach(function (modal) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      });
+    </script>
 
   </body>
 </html>

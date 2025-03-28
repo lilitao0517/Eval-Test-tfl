@@ -47,14 +47,14 @@
 
 ## **✨ Highlights**
 
-- [STCray](#stcray)
+- [**STCray**](#stcray)
 - [**STING-BEE**](#sting-bee)  
 
 It establishes **new baselines** for **multimodal learning in X-ray baggage security**.  
 
 ---
 
-## STCray  
+## **STCray**  
 
 ### Overview of the STCray dataset with real-world threats and image-text paired data
 
@@ -75,7 +75,7 @@ It establishes **new baselines** for **multimodal learning in X-ray baggage secu
 | PIDRay (IJCV'23) | 15 | ❌ | ❌ | ❌ | ❌ |
 | **STCray (Ours)** | **21** | ✅ | ✅ | ✅ | ✅ |
 
-*Table: Comparison of STCray with other public datasets based on multimodality, strategic concealment, emerging novel threats, and zero-shot task capabilities.*
+* Comparison based on multimodality, strategic concealment, novel threats, and zero-shot task capabilities.*
 
 ---
 

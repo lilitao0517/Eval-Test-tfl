@@ -43,7 +43,7 @@
 - [**Overview**](#overview)
 - [**Highlights**](#highlights)
 - [**Install**](#install)
-- [**Model Weights**](#model-weights)
+- [**Weights**](#weights)
 
 ---  
 
@@ -136,10 +136,12 @@ pip install -e .
 ```
 ---
 
-## 🔗 **Model Weights**
+## 🔗 **Weights**
 
-Please check out our [Model Zoo](https://github.com/mbzuai-oryx/GeoChat/blob/main/docs/MODEL_ZOO.md) for STING-BEE checkpoint weights.
-Otherwise, you can download our STING-BEE-7B model weights from [Hugging Face](https://huggingface.co/Divs1159/stingbee-7b).
+Please check out our [Model Zoo](https://github.com/Divs1159/STING-BEE/blob/main/docs/MODEL_ZOO.md) for detailed information on STING-BEE checkpoint weights.
+
+Alternatively, you can directly download the **STING-BEE-7B** model weights from [🤗 Hugging Face](https://huggingface.co/Divs1159/stingbee-7b).
+
 
 
 

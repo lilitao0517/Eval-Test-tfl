@@ -43,7 +43,7 @@
 - [**Overview**](#overview)
 - [**Highlights**](#highlights)
 - [**Install**](#install)
-- [**Weights**](#weights)
+- [**Model Weights**](#model-weights)
 
 ---  
 
@@ -136,12 +136,36 @@ pip install -e .
 ```
 ---
 
-## 🔗 **Weights**
+## 🔗**Model Weights**
 
 Please check out our [Model Zoo](https://github.com/Divs1159/STING-BEE/blob/main/docs/MODEL_ZOO.md) for detailed information on STING-BEE checkpoint weights.
 
 Alternatively, you can directly download the **STING-BEE-7B** model weights from [🤗 Hugging Face](https://huggingface.co/Divs1159/stingbee-7b).
 
+Check [LoRA.md](https://github.com/Divs1159/STING-BEE/blob/main/docs/LoRA.md) for instructions on how to run the demo.
+
+
+---
+
+## Train
+
+STING-BEE training consists of visual instruction tuning using StingBee_XrayInstruct data: Multimodal instruction-following data generated using STCray, fine-tuned over the pre-trained weights of LlaVA-v1.5.
+
+We train STING-BEE on 2 A100 GPUs with 80GB memory. To train on fewer GPUs, you can reduce the `per_device_train_batch_size` and increase the `gradient_accumulation_steps`. To keep the global batch size the same, use the formula: `per_device_train_batch_size` x `gradient_accumulation_steps` x `num_gpus`.
+
+### Hyperparameters
+We used the following hyperparameters in fine-tuning:
+
+| Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| STING-BEE-7B | 96 | 2e-5 | 1 | 2048 | 0 |
+
+### Pretrain (feature alignment)
+
+We use the pretrained projector from LLaVAv1.5, which is trained on 558K subset of the LAION-CC-SBU dataset with BLIP captions.
+
+- `--mm_projector_type mlp2x_gelu`: the two-layer MLP vision-language connector.
+- `--vision_tower openai/clip-vit-large-patch14-336`: CLIP ViT-L/14 336px.
 
 
 

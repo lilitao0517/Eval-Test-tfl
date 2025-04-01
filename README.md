@@ -42,6 +42,8 @@
 ## Contents
 - [**Overview**](#overview)
 - [**Highlights**](#highlights)
+- [**Install**](#install)
+- [**Model Weights**](#model-weights)
 
 ---  
 
@@ -101,6 +103,45 @@ Tuning, consisting of Multi-task Threat Instruction Tuning and Threat Visual-Gro
 BEE evaluation tasks including Scene Comprehension, Referring Expression, Visual Grounding, and VQA.</p>
 
 ---
+
+## **Install**
+
+1. Clone this repository and navigate to STING-BEE folder
+```bash
+git clone https://github.com/Divs1159/STING-BEE.git
+cd STING-BEE
+```
+
+2. Install Package
+```Shell
+conda create -n stingbee python=3.9 -y
+conda activate stingbee
+pip install --upgrade pip  
+pip install -e .
+
+```
+
+3. Install additional packages for training cases
+```
+pip install ninja
+pip install flash-attn --no-build-isolation
+```
+
+### Upgrade to latest code base
+
+```Shell
+git pull
+pip uninstall transformers
+pip install -e .
+```
+---
+
+## 🔗 **Model Weights**
+
+Please check out our [Model Zoo](https://github.com/mbzuai-oryx/GeoChat/blob/main/docs/MODEL_ZOO.md) for STING-BEE checkpoint weights.
+Otherwise, you can download our STING-BEE-7B model weights from [Hugging Face](https://huggingface.co/Divs1159/stingbee-7b).
+
+
 
 ## **📄 Citation**  
 

@@ -1,5 +1,8 @@
-# <img src="./images/logo.jpeg" height="150"> STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection [ CVPR-2025 ]
+# <img src="./images/logo.jpeg" height="40"> STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection [ CVPR-2025 ]
 
+<p align="center">
+    <img src="https://i.imgur.com/waxVImv.png" alt="Image">
+</p>
 <p align="center">
   <strong>
     <a href="https://www.linkedin.com/in/divya-velayudhan-958052175">Divya Velayudhan</a>¹,  
@@ -19,16 +22,8 @@
 </p>
   
 
-<p align="center">
-  ¹ Khalifa University of Science and Technology &emsp;&emsp;&emsp;&emsp;
-  ² Abu Dhabi University &emsp;&emsp;&emsp;&emsp;
-  <br>
-  ³ University of Bonn &emsp;&emsp;&emsp;&emsp;
-  ⁴ Lamarr Institute for ML and AI &emsp;&emsp;&emsp;&emsp;
-  ⁵ The University of Western Australia
-</p>
 
-[![Website](https://img.shields.io/badge/STING--BEE-Website-87CEEB)](https://divs1159.github.io/STING-BEE/) [![arXiv](https://img.shields.io/badge/arXiv-Paper-B31B1B)](https://arxiv.org/)  [![Code](https://img.shields.io/badge/GitHub-Code-181717?logo=github)](https://github.com/Divs1159/STING-BEE) [![Dataset](https://img.shields.io/badge/STCray-Dataset-228B22)](https://huggingface.co/datasets/Naoufel555/STCray-Dataset)
+[![Website](https://img.shields.io/badge/STING--BEE-Website-87CEEB)](https://divs1159.github.io/STING-BEE/) [![arXiv](https://img.shields.io/badge/arXiv-Paper-B31B1B)](https://arxiv.org/)  [![Code](https://img.shields.io/badge/GitHub-Code-181717?logo=github)](https://github.com/Divs1159/STING-BEE) [![Dataset](https://img.shields.io/badge/STCray-Dataset-228B22)](https://huggingface.co/datasets/Naoufel555/STCray-Dataset)  [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://youtu.be/_efmQW2nSGw)
 
 ---
 
@@ -44,6 +39,8 @@
 - [**Highlights**](#highlights)
 - [**Install**](#install)
 - [**Model Weights**](#model-weights)
+- [**Dataset**](https://huggingface.co/datasets/Naoufel555/STCray-Dataset)
+- [**Evaluation**](#evaluation)
 
 ---  
 
@@ -167,8 +164,97 @@ We use the pretrained projector from LLaVAv1.5, which is trained on 558K subset 
 - `--mm_projector_type mlp2x_gelu`: the two-layer MLP vision-language connector.
 - `--vision_tower openai/clip-vit-large-patch14-336`: CLIP ViT-L/14 336px.
 
+## 🧾 Visual Instruction Tuning
 
+### 1. 📦 Prepare Data
 
-## **📄 Citation**  
+To train STING-BEE on your own, you need:
 
-If you use **STING-BEE** in your research, please cite our work:  
+- The instruction tuning annotations (`StingBee_XrayInstruct.json`)
+- Images from [STCray Train set](https://huggingface.co/datasets/Naoufel555/STCray-Dataset/blob/main/STCray_TrainSet.rar) to be placed in a single flat directory.
+  
+  
+**📁 Expected folder structure:**
+```bash
+STCray_TrainSet/
+├── Images/
+│   ├── xray_00001.png
+│   ├── xray_00002.jpg
+│   ├── ...
+├── StingBee_XrayInstruct.json
+```
+> 🔹 The `Images/` folder should contain all X-ray images — not organized in class-wise subfolders.
+
+Once arranged like above, pass the image folder and annotation file paths in your training script.
+
+### 2. 🚀 Start Training
+
+Visual instruction tuning takes time due to the increased resolution of CLIP encoder. 
+
+To launch training with LoRA, use the provided script: [`finetune_lora.sh`](https://github.com/Divs1159/STING-BEE/blob/main/scripts/finetune_lora.sh).
+
+```bash
+ ./scripts/finetune_lora.sh
+```
+
+💡 Make sure the instruction data and image paths are correctly set.
+
+---
+
+## 📊**Evaluation**
+
+STING-BEE provides a unified platform for scene comprehension, referring threat localization, visual grounding, and VQA, establishing new baselines for X-ray baggage security research. 
+We evaluated and compared the cross-domain performance of our STING-BEE across diverse vision-language tasks using three other public datasets.
+
+To establish evaluation benchmarks for VQA in X-ray threat monitoring, we developed a comprehensive Visual Question Answers (VQAs) with 39,194 questions, based on images 
+from STCray test set, SIXray, and PIDray. These include seven distinct question categories- Instance Identity, Instance Counting, Instance Location, Instance Attribute, Instance Interaction, Complex Visual Reasoning, and Misleading Questions.
+
+These question types capture different levels of interleaved text-image understanding critical for real-world security screening tasks.
+
+👉 See the [VQA Evaluation Benchmark](https://github.com/Divs1159/STING-BEE/tree/main/stingbee/eval/VQA%20Evaluation%20Benchmark)
+
+---
+
+## 🎯 Qualitative Results
+
+Qualitative examples below  showcasing the capabilities of STING-BEE across diverse vision-language tasks: Scene Comprehension (d, e, f, i), Referring Threat Localization (a, j), Visual Grounding (c, g), and Visual Question Answering (b, h). These examples span four X-ray security datasets— STCray, SIXray, PIDray, and Compass XP — illustrating STING-BEE’s robustness and adaptability to diverse X-ray imagery.
+
+<p align="center">
+  <img src="images/Qual2_V2.png" alt="Results_stingbee">
+</p>          
+
+---
+
+### Scene Comprehension
+
+<p align="center">
+  <img src="images/Qual3_V2.png" alt="Results_stingbee_scene">
+</p> 
+
+---
+
+### Visual Grounding
+
+<p align="center">
+  <img src="images/Qual4_V2.png" alt="Results_stingbee_grounding">
+</p>
+
+---
+
+## **📜 Citation**
+
+If you find this work useful in your research, please cite:
+
+```bibtex
+@article{velayudhan2025stingbee,
+  title={STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection},
+  author={Divya Velayudhan and Abdelfatah Ahmed and Mohamad Alansari and Neha Gour and Abderaouf Behouch and Taimur Hassan and Syed Talal Wasim and Nabil Maalej and Muzammal Naseer and Juergen Gall and Mohammed Bennamoun and Ernesto Damiani and Naoufel Werghi},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2025}
+}
+```
+
+## 🙏 Acknowledgement
+We are thankful to LLaVA and Vicuna for releasing their models and code as open-source contributions.
+
+---

@@ -121,11 +121,12 @@
         }
 
         .navcolor{
-            background-color: #363636;
+            background-color: #f7f7f7;
+            border: none; /* Remove border */
         }
 
-        .navfontc{
-            color: white;
+        .navfontc {
+            color: black !important; /* Set font color to black */
         }
 
         .margin-left{
@@ -222,17 +223,52 @@
           transition: all 0.3s ease-in-out;
         }
         .navcolor {
-          background-color: #363636; /* Dark background color */
+          background-color: #f7f7f7;; /* Light Grey background color */
           border: none; /* Remove border */
         }
 
         .navfontc {
-          color: white !important; /* Ensure text is white */
+          color: black !important; /* Set font color to black */
+          font-weight: bold;
         }
 
         .navfontc:hover {
-          color: #ff7675 !important; /* Light red on hover */
+          color: #082888 !important; /* Light red on hover */
         }
+        /* Ensure dropdown menu background is consistent */
+        .dropdown-menu {
+          background-color: #f7f7f7 !important; /* Light grey background */
+          border: none; /* Remove border */
+        }
+
+        /* Style dropdown menu items */
+        .dropdown-menu > li > a {
+          color: black !important; /* Set text color to black */
+          font-weight: bold; /* Make text bold */
+          background-color: transparent !important; /* Transparent background */
+        }
+
+        /* Hover effect for dropdown menu items */
+        .dropdown-menu > li > a:hover {
+          background-color: #e0e0e0 !important; /* Light grey on hover */
+          color: #082888 !important; /* Optional: Change text color on hover */
+        }
+        /* Ensure the dropdown toggle retains its styling */
+        .dropdown-toggle.navfontc {
+          background-color: transparent !important; /* Keep the background transparent */
+          color: black !important; /* Ensure the text color remains black */
+          font-weight: bold; /* Keep the text bold */
+          border: none; /* Remove any border */
+        }
+
+/* Hover and active state for the dropdown toggle */
+.dropdown-toggle.navfontc:hover,
+.dropdown-toggle.navfontc:focus {
+    background-color: #e0e0e0 !important; /* Light grey on hover or focus */
+    color: #082888 !important; /* Optional: Change text color on hover or focus */
+}
+
+
     </style>
   </head>
   <body>
@@ -244,17 +280,28 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand font1 navsize1" href="https://divs1159.github.io/STING-BEE"><span class="quilt">STING-BEE</span></a> 
+        <a class="navbar-brand font1 navsize1 navfontc" href="https://divs1159.github.io/STING-BEE"><span class="quilt">STING-BEE</span></a> 
         
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navsize">
           <!-- <li><a href="https://arxiv.org/abs/2306.11207">Paper</a></li> -->
           <!-- <li><a href="#dataset">Dictionary</a></li> -->
-          <li><a href="#result">Results</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle navfontc" data-toggle="dropdown">Contributions <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#stcray" class="navfontc">STCray Dataset</a></li>
+              <li><a href="#sting-protocol" class="navfontc">STING Protocol</a></li>
+              <li><a href="#stingbee" class="navfontc">STING-BEE Train/Eval</a></li>
+            </ul> 
+          </li> 
+          <li><a href="https://youtu.be/_efmQW2nSGw" target="_blank" class="navfontc">Video</a></li> 
+          <li><a href="#result" class="navfontc">Results</a></li>
           <!-- <li><a href="#author">Authors</a></li> -->
-          <li><a href="#cite">Citation</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#cite" class="navfontc">Citation</a></li>
+          <li><a href="#contact" class="navfontc">Contact</a></li>
+          <!-- Dropdown for Contributions -->
+          
         </ul>
       </div>
     </div>
@@ -262,7 +309,7 @@
     <div class="container div1" align="center"> 
       <div class="text-center">
         <a href="javascript:void(0);" onclick="openModal('logoModal', 'logoModalImg', this)">
-          <img class="img-fluid" src="./images/logo.jpeg" alt="STING-BEE Logo" style="max-width: 150px; margin-top: 45px; margin-bottom: 10px;">
+          <img class="img-fluid" src="./images/logo.jpeg" alt="STING-BEE Logo" style="max-width: 150px; margin-top: 50px; margin-bottom: 10px;">
         </a>
       </div>
       
@@ -341,8 +388,8 @@
 <br><br>
 <div class="text-center">
   <iframe 
-    width="55%" 
-    height="550" 
+    width="45%" 
+    height="580" 
     src="https://www.youtube.com/embed/_efmQW2nSGw?start=0" 
     title="YouTube video player" 
     frameborder="0" 
@@ -350,8 +397,9 @@
     allowfullscreen>
   </iframe>
 </div>
+<hr style="border: 0; height: 1px; background: #d3d3d3; margin: 30px 0;">  
 <br><br>
-<hr style="border: 0; height: 1px; background: #d3d3d3; margin: 30px 0;">   
+ 
 
     <!-- STCray Dataset Section -->
 <div class="container" id="stcray">
@@ -655,12 +703,12 @@ STING-BEE introduces <b>specialized task-identification tokens</b> to differenti
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 118%;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex; /* Enable Flexbox */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    padding: 20px; /* Add some padding to prevent the image from touching the edges */
+    padding: 60px 200px; /* Add some padding to prevent the image from touching the edges */
 }
 
 /* Center the image properly */

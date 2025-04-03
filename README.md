@@ -170,7 +170,7 @@ We use the pretrained projector from LLaVAv1.5, which is trained on 558K subset 
 
 To train STING-BEE on your own, you need:
 
-- The instruction tuning annotations (`StingBee_XrayInstruct.json`)
+- The instruction tuning annotations (`StingBee_XrayInstruct.json`). Download the instruction tuning dataset from [Hugging Face](https://huggingface.co/datasets/Divs1159/StingBee_XrayInstruct) .
 - Images from [STCray Train set](https://huggingface.co/datasets/Naoufel555/STCray-Dataset/blob/main/STCray_TrainSet.rar) to be placed in a single flat directory.
   
   

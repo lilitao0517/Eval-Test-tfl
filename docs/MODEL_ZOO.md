@@ -2,7 +2,7 @@
 
 | Base LLM | Vision Encoder | Pretrain Data | Pretraining schedule | Finetuning Data |  Download |
 |----------|----------------|---------------|----------------------|-----------------|-----------|
-| Vicuna-13B-v1.3 | CLIP-L-336px| LCS-558K | 1e | StingBee_XrayInstruct | [LoRA-Merged](https://huggingface.co/Divs1159/stingbee-7b) |
+| Vicuna-13B-v1.3 | CLIP-L-336px| LCS-558K | 1e | [StingBee_XrayInstruct](https://huggingface.co/datasets/Divs1159/StingBee_XrayInstruct) | [LoRA-Merged](https://huggingface.co/Divs1159/stingbee-7b) |
 
 ## Projector weights
 We use the projector from LlaVA-1.5 for initialization. [Link](https://huggingface.co/liuhaotian/llava-v1.5-7b-lora)

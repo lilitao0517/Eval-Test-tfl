@@ -28,7 +28,7 @@
 ---
 
 ## 📢 Latest Updates
-- **Apr-02-25**: STING-BEE paper is released [arxiv link]. 
+- **Apr-04-25**: STING-BEE paper is released on [arxiv](https://arxiv.org/abs/2504.02823). 
 - **Mar-25-25**: We open-source the code, model, dataset, and evaluation scripts. 
 - **Feb-27-25**: STING-BEE has been accepted to **CVPR-25** 🎉.
   

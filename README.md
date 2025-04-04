@@ -23,7 +23,7 @@
   
 
 
-[![Website](https://img.shields.io/badge/STING--BEE-Website-87CEEB)](https://divs1159.github.io/STING-BEE/) [![arXiv](https://img.shields.io/badge/arXiv-Paper-B31B1B)](https://arxiv.org/)  [![Code](https://img.shields.io/badge/GitHub-Code-181717?logo=github)](https://github.com/Divs1159/STING-BEE) [![Dataset](https://img.shields.io/badge/STCray-Dataset-228B22)](https://huggingface.co/datasets/Naoufel555/STCray-Dataset)  [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://youtu.be/_efmQW2nSGw)
+[![Website](https://img.shields.io/badge/STING--BEE-Website-87CEEB)](https://divs1159.github.io/STING-BEE/) [![arXiv](https://img.shields.io/badge/arXiv-Paper-B31B1B)](https://arxiv.org/abs/2504.02823)  [![Code](https://img.shields.io/badge/GitHub-Code-181717?logo=github)](https://github.com/Divs1159/STING-BEE) [![Dataset](https://img.shields.io/badge/STCray-Dataset-228B22)](https://huggingface.co/datasets/Naoufel555/STCray-Dataset)  [![video](https://img.shields.io/badge/Video-Presentation-F9D371)](https://youtu.be/_efmQW2nSGw)
 
 ---
 

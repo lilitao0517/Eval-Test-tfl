@@ -1,4 +1,4 @@
-# <img src="./images/logo.jpeg" height="40"> STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection [ CVPR-2025 ]
+# <img src="./images/logo.jpeg" height="40"> STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection [ CVPR'25-Highlight]
 
 <p align="center">
     <img src="https://i.imgur.com/waxVImv.png" alt="Image">

@@ -247,10 +247,11 @@ Qualitative examples below  showcasing the capabilities of STING-BEE across dive
 If you find this work useful in your research, please cite:
 
 ```bibtex
-@article{velayudhan2025stingbee,
+@inproceedings{velayudhan2025sting,
   title={STING-BEE: Towards Vision-Language Model for Real-World X-ray Baggage Security Inspection},
-  author={Divya Velayudhan and Abdelfatah Ahmed and Mohamad Alansari and Neha Gour and Abderaouf Behouch and Taimur Hassan and Syed Talal Wasim and Nabil Maalej and Muzammal Naseer and Juergen Gall and Mohammed Bennamoun and Ernesto Damiani and Naoufel Werghi},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  author={Velayudhan, Divya and Ahmed, Abdelfatah and Alansari, Mohamad and Gour, Neha and Behouch, Abderaouf and Hassan, Taimur and Wasim, Syed Talal and Maalej, Nabil and Naseer, Muzammal and Gall, Juergen and others},
+  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference},
+  pages={20767--20777},
   year={2025}
 }
 ```

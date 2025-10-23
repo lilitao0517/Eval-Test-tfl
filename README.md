@@ -4,6 +4,15 @@ The code is built on the official STING-BEE repository, due to the lack of offic
 
 ---
 
+## ✅ Supported Models
+
+| Model | Resolution |
+|-------|------------|
+| STING-BEE | `504×504` |
+| InternVL 3.5 | `448×448` (dynamic) |
+| LLaVA-1.5 | `336×336` |
+| Qwen2.5-VL | `448×448` |
+
 ## 🚀 Get Started
 
 ### 1. Environment Setup

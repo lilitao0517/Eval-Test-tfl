@@ -1,0 +1,21 @@
+NUM_GPUS=6
+QUESTION_FILE="/home/data2/zkj/llt_code/STING-BEE/stingbee/othermodel_eval/classfication_benchmark/pidray_multilabel_questions.jsonl"
+ANSWER_DIR="/home/data2/zkj/llt_code/STING-BEE/stingbee/othermodel_eval/results/classfication"
+MODEL_PATH="/home/data2/zkj/llt_code/public_model/Qwen2.5-VL-7B-Instruct/"
+for ((i=0; i<$NUM_GPUS; i++)); do
+  CUDA_VISIBLE_DEVICES=$i \
+  python stingbee/othermodel_eval/qwen2_5vl_classfication_eval.py \
+    --model-path $MODEL_PATH \
+    --question_file $QUESTION_FILE \
+    --answers_file "$ANSWER_DIR/qwen2_5-7b_pid_part_$i.jsonl" \
+    --num_chunks $NUM_GPUS \
+    --chunk_idx $i \
+    --batch_size 1 \
+    --temperature 0.1 \
+    > "$ANSWER_DIR/log_$i.txt" 2>&1 &
+done
+
+wait
+echo "All processes finished. Merging results..."
+cat "$ANSWER_DIR"/qwen2_5-7b_pid_part_*.jsonl | sort -k1 > "$ANSWER_DIR/qwen2_5-7b_pid.jsonl"
+echo "Final result save finish"

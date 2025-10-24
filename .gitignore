@@ -3,4 +3,7 @@ stingbee/othermodel_eval/results/classfication
 images/*
 xray_demo_images/*
 docs/*
+_config.yml
+CaptionGen2.png
+stingbee_demo.py
 

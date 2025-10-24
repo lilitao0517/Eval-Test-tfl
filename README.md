@@ -1,8 +1,11 @@
-# Classification Evaluation on Pidray and OPIXray
+# Classification Evaluation and Captioner on Pidray and OPIXray
 
 The code is built on the official STING-BEE repository, due to the lack of official requirements, please be sure to follow the steps below to configure the environment.
 
 ---
+##  Important News
+We are about to present a unified X-ray visual language model that achieves excellent performance on major benchmarks. We will provide a rich multimodal Benchmark for X-ray contraband.
+
 
 ## ✅ Supported Models
 
@@ -58,6 +61,30 @@ Parameters need to be set by yourself, different datasets save different jsonl f
 python stingbee/othermodel_eval/multidetect_cls_metric_cal.py --predictions xxx.jsonl --output xxx.txt #for multiclassification
 
 python stingbee/othermodel_eval/singledetect_cls_metric_cal.py --predictions xxx.jsonl --output xxx.txt #for singleclassfication
+```
+
+
+### 4. Getting the Caption
+We have obtained rough captions for opixray in `dataset/opixray/trainset_caption_coordinate_alignment.jsonl`<br>
+
+We use `Qwen2.5-VL-7B` to get the caption, but of course, this model can be seamlessly integrated into other models. Simply modify the `local_model_path`.<br>
+
+In order to obtain a better representation of the title and already better command compliance, we recommend the use of the `Qwen2.5-VL-32B-Instruct`.
+
+To get Model:
+```bash
+modelscope download --model Qwen/Qwen2.5-VL-32B-Instruct --local_dir yourlocal_path
+```
+
+For Opixray:
+```bash
+torchrun --nproc_per_node=4 dataset_construction/opixray/text_caption.py
+```
+
+
+For PIDray：
+```bash
+torchrun --nproc_per_node=4 dataset_construction/pidray/text_caption.py
 ```
 
 

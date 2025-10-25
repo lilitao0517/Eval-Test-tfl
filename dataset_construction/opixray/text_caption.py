@@ -1,7 +1,10 @@
 '''
 Built on Qwen3-VL and STING-BEE
+Func:
+1. Dead Lock of ddp files
+2. multi-gpus infer
+3. Right Prompt
 '''
-
 
 import os
 import json
@@ -96,24 +99,19 @@ class CaptionDataset(Dataset):
 
         self.processor = processor_instance
         # --- MODIFIED PROMPT TEMPLATE ---
-        self.prompt_template = """You are an expert in X-ray security analysis. Your task is to generate a detailed, accurate, and fluent descriptive caption for the provided X-ray image based on the given labels and bounding boxes.
-
-Key Principles:
+        self.prompt_template = """The prohibited items inside the above image are [classes]. Their corresponding bounding box coordinates are: [bboxes]. You are an expert in X-ray security analysis. Your task is to generate a detailed, accurate, and fluent descriptive caption for the provided X-ray image based on the given labels and bounding boxes.
+Generate a single, cohesive paragraph. Please note that the caption must have the contraband <bbox>[x1,y1,x2,y2]<\bbox> field. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
+You need to be aware of the following Key Principles when generating captions. 
 * X-ray Context: Remember that X-ray imaging reveals materials based on density and thickness, leading to unique color representations that differ from natural photographs.
 * Dynamic Content: The caption must accurately reflect all provided items. If there is one item, focus on it. If there are multiple, describe them in relation to each other and the overall package.
 * Structural Requirements: Your caption must seamlessly integrate the following elements:
   1. Inventory & Count: Clearly state the number and class of all prohibited items present (e.g., "a single lighter," "two items: a sprayer and a power bank").
-  2. Precise Location: For each item, embed its exact coordinates in the format <bbox>[x1,y1,x2,y2]<\bbox>.
+  2. Precise Location: For each item, embed its exact coordinates in the format <bbox>[x1,y1,x2,y2]<bbox>.
   3. Spatial Description: Describe the approximate location of each item within the luggage or package (e.g., "in the upper-left corner," "nestled among clothing," "at the center").
   4. Detailed Features: Describe fine-grained characteristics of each item (e.g., "a metal lighter with a transparent fuel chamber," "a sprayer with a red plastic nozzle").
   5. Color & Material: Comment on the X-ray color representation of the items (e.g., "appears orange due to its organic material," "shows a bright blue, indicating dense plastic or metal").
   6. Container Context: Briefly describe the surrounding contents or the container itself (e.g., "inside a toiletry bag," "packed between books," "visible through a grey backpack").
 
-Based on the image, generate a caption for the following prohibited items: [class].
-Their corresponding bounding box coordinates are: [bbox].
-
-Output Format:
-Generate a single, cohesive paragraph. Please note that the caption must have the contraband <bbox>[x1,y1,x2,y2]<\bbox> field. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
 """
 
     def __len__(self):
@@ -144,16 +142,15 @@ Generate a single, cohesive paragraph. Please note that the caption must have th
         else:
             raise TypeError(f"bbox must be a list of lists, got {type(bbox_raw)}")
 
-        resized_bboxes = []
-        for bbox_original in bboxes_original:
-            if len(bbox_original) != 4:
-                raise ValueError(f"Each bbox must have 4 elements, got {len(bbox_original)}: {bbox_original}")
-            resized_bboxes.append(convert_to_qwen25vl_format(bbox_original, orig_height, orig_width))
+        # resized_bboxes = []
+        # for bbox_original in bboxes_original:
+        #     if len(bbox_original) != 4:
+        #         raise ValueError(f"Each bbox must have 4 elements, got {len(bbox_original)}: {bbox_original}")
+        #     resized_bboxes.append(convert_to_qwen25vl_format(bbox_original, orig_height, orig_width))
         
         class_str = ', '.join(ground_truth)
-        bbox_str_list = [f"<bbox>[{','.join(map(str, b))}]</bbox>" for b in resized_bboxes]
+        bbox_str_list = [f"<bbox>[{','.join(map(str, b))}]</bbox>" for b in bboxes_original]
         bbox_str = ', '.join(bbox_str_list)
-        # --- END OF MODIFICATION ---
 
         text_prompt = self.prompt_template.replace("[classes]", class_str).replace("[bboxes]", bbox_str)
 
@@ -186,6 +183,7 @@ def collate_fn(batch, processor_instance):
     
     return items, inputs
 
+# --- MODIFIED FUNCTION ---
 def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path, output_jsonl_path):
    
     is_main_process = (rank == 0)
@@ -211,12 +209,27 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
 
     dataloader = DataLoader(dataset, batch_size=2, sampler=sampler, shuffle=(sampler is None), collate_fn=lambda batch: collate_fn(batch, processor), num_workers=4)
 
-    all_results = []
+    try:
+        import fcntl
+    except ImportError:
+        print("Warning: fcntl module not found. File locking is disabled, which may cause issues in distributed writing.")
+        fcntl = None
+
+
+    if is_main_process:
+        with open(output_jsonl_path, 'w') as f:
+            pass
+        print(f"Output file {output_jsonl_path} initialized by main process.")
+
+
+    if dist.is_initialized():
+        dist.barrier()
     if is_main_process:
         if dist.is_initialized():
-            print(f"Starting inference on {dist.get_world_size()} GPUs.")
+            print(f"Starting inference on {dist.get_world_size()} GPUs with streaming write.")
         else:
-            print("Starting inference on a single GPU.")
+            print("Starting inference on a single GPU with streaming write.")
+
 
     for items, inputs in dataloader:
         inputs = inputs.to(f"cuda:{local_rank}")
@@ -230,32 +243,28 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
                 generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
             )
 
-        for item, caption in zip(items, output_texts):
-            result_entry = {
-                "image_id": item['image_id'],
-                "ground_truth": item['ground_truth'],
-                "bbox": item['bbox'],
-                "caption": caption
-            }
-            all_results.append(result_entry)
-        
-        if is_main_process:
-            print(f"Rank {rank} processed a batch.")
 
-    if dist.is_initialized():
-        all_results_gathered = [None] * dist.get_world_size()
-        dist.all_gather_object(all_results_gathered, all_results)
-        if is_main_process:
-            final_results = [item for sublist in all_results_gathered for item in sublist]
-    else:
-        final_results = all_results
-    
-    if is_main_process:
-        with open(output_jsonl_path, 'w', encoding='utf-8') as f_out:
-            for result in final_results:
-                f_out.write(json.dumps(result, ensure_ascii=False) + '\n')
-        print(f"Processing complete. Results saved to {output_jsonl_path}")
+        with open(output_jsonl_path, 'a', encoding='utf-8') as f_out:
+            if fcntl:
+                try:
+                    fcntl.flock(f_out, fcntl.LOCK_EX)
+                except IOError:
+                    print(f"Rank {rank}: Could not acquire lock on output file. Skipping write.")
+                    continue
 
+            for item, caption in zip(items, output_texts):
+                result_entry = {
+                    "image_id": item['image_id'],
+                    "ground_truth": item['ground_truth'],
+                    "bbox": item['bbox'],
+                    "caption": caption
+                }
+                f_out.write(json.dumps(result_entry, ensure_ascii=False) + '\n')
+            
+            if fcntl:
+                fcntl.flock(f_out, fcntl.LOCK_UN)
+        if is_main_process:
+            print(f"Rank {rank} processed a batch and wrote results to disk.")
     if dist.is_initialized():
         dist.destroy_process_group()
 
@@ -264,7 +273,7 @@ if __name__ == "__main__":
 
     local_model_path = "/home/data2/zkj/llt_code/public_model/Qwen2.5-VL-7B-Instruct/"
     input_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_all.jsonl'
-    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_caption_v2.jsonl'
+    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_caption.jsonl'
 
     rank, local_rank = setup_distributed()
     
@@ -275,3 +284,4 @@ if __name__ == "__main__":
         input_jsonl_path=input_jsonl_file,
         output_jsonl_path=output_jsonl_file
     )
+

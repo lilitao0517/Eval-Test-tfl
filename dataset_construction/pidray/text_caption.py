@@ -2,13 +2,44 @@ import os
 import json
 import torch
 import torch.distributed as dist
-from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import Dataset, DataLoader
 from modelscope import Qwen2_5_VLForConditionalGeneration, AutoProcessor
 from qwen_vl_utils import process_vision_info
+from PIL import Image
+import math
+from typing import Tuple
+
+def smart_resize(height: int, width: int, factor: int = 28, min_pixels: int = 56 * 56, max_pixels: int = 14 * 14 * 4 * 1280):
+    if max(height, width) / min(height, width) > 200:
+        raise ValueError(f"absolute aspect ratio must be smaller than 200, got {max(height, width) / min(height, width)}")
+    h_bar = round(height / factor) * factor
+    w_bar = round(width / factor) * factor
+    if h_bar * w_bar > max_pixels:
+        beta = math.sqrt((height * width) / max_pixels)
+        h_bar = max(factor, math.floor(height / beta / factor) * factor)
+        w_bar = max(factor, math.floor(width / beta / factor) * factor)
+    elif h_bar * w_bar < min_pixels:
+        beta = math.sqrt(min_pixels / (height * width))
+        h_bar = math.ceil(height * beta / factor) * factor
+        w_bar = math.ceil(width * beta / factor) * factor
+    return h_bar, w_bar
+
+def convert_to_qwen25vl_format(bbox, orig_height, orig_width, factor=28, min_pixels=56*56, max_pixels=14*14*4*1280):
+    new_height, new_width = smart_resize(orig_height, orig_width, factor, min_pixels, max_pixels)
+    scale_w = new_width / orig_width
+    scale_h = new_height / orig_height
+    x1, y1, x2, y2 = bbox
+    x1_new = round(x1 * scale_w)
+    y1_new = round(y1 * scale_h)
+    x2_new = round(x2 * scale_w)
+    y2_new = round(y2 * scale_h)
+    x1_new = max(0, min(x1_new, new_width - 1))
+    y1_new = max(0, min(y1_new, new_height - 1))
+    x2_new = max(0, min(x2_new, new_width - 1))
+    y2_new = max(0, min(y2_new, new_height - 1))
+    return [x1_new, y1_new, x2_new, y2_new]
 
 def setup_distributed():
-    """Initializes distributed training."""
     if "RANK" in os.environ and "WORLD_SIZE" in os.environ:
         rank = int(os.environ["RANK"])
         world_size = int(os.environ["WORLD_SIZE"])
@@ -17,17 +48,23 @@ def setup_distributed():
         torch.cuda.set_device(local_rank)
         return rank, local_rank
     else:
-       
+        if torch.cuda.is_available():
+            torch.cuda.set_device(0)
         return 0, 0
 
 class CaptionDataset(Dataset):
     def __init__(self, jsonl_path, processor_instance):
         self.data = []
+        self.image_info = {}
         with open(jsonl_path, 'r', encoding='utf-8') as f:
             for line in f:
-                self.data.append(json.loads(line))
+                item = json.loads(line)
+                self.data.append(item)
+                image_path = item['image_id']
+                if image_path not in self.image_info:
+                    with Image.open(image_path) as img:
+                        self.image_info[image_path] = img.size
         self.processor = processor_instance
-        
         self.prompt_template = """You are an expert in X-ray security analysis. Your task is to generate a detailed, accurate, and fluent descriptive caption for the provided X-ray image based on the given labels and bounding boxes.
 
 Key Principles:
@@ -41,14 +78,12 @@ Key Principles:
   5. Color & Material: Comment on the X-ray color representation of the items (e.g., "appears orange due to its organic material," "shows a bright blue, indicating dense plastic or metal").
   6. Container Context: Briefly describe the surrounding contents or the container itself (e.g., "inside a toiletry bag," "packed between books," "visible through a grey backpack").
 
-Based on the image, generate a caption for the following prohibited items: [class].
-Their corresponding bounding box coordinates are: [bbox].
+Based on the image, generate a caption for the following prohibited items: [classes].
+Their corresponding bounding box coordinates are: [bboxes].
 
 Output Format:
 Generate a single, cohesive paragraph. Do not use lists or bullet points. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
 """
-
-
 
     def __len__(self):
         return len(self.data)
@@ -56,12 +91,18 @@ Generate a single, cohesive paragraph. Do not use lists or bullet points. Vary y
     def __getitem__(self, idx):
         item = self.data[idx]
         image_path = item['image_id']
+        orig_width, orig_height = self.image_info[image_path]
         ground_truth = item['ground_truth']
-        bbox = item['bbox']
+        bbox_raw = item['bbox']
 
+        bboxes_original = [list(b) for b in bbox_raw]
+        resized_bboxes = [convert_to_qwen25vl_format(b, orig_height, orig_width) for b in bboxes_original]
+        
         class_str = ', '.join(ground_truth)
-        bbox_str = ', '.join(map(str, bbox))
-        text_prompt = self.prompt_template.replace("[class]", class_str).replace("[bbox]", bbox_str)
+        bbox_str_list = [f"<bbox>[{','.join(map(str, b))}]</bbox>" for b in resized_bboxes]
+        bbox_str = ', '.join(bbox_str_list)
+        
+        text_prompt = self.prompt_template.replace("[classes]", class_str).replace("[bboxes]", bbox_str)
 
         messages = [
             {
@@ -77,39 +118,22 @@ Generate a single, cohesive paragraph. Do not use lists or bullet points. Vary y
 
 def collate_fn(batch, processor_instance):
     items, messages_list = zip(*batch)
-    
     texts = [processor_instance.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in messages_list]
-    
     image_inputs, video_inputs = process_vision_info(messages_list)
-    
-    inputs = processor_instance(
-        text=texts,
-        images=image_inputs,
-        videos=video_inputs,
-        padding=True,
-        return_tensors="pt",
-    )
-    
+    inputs = processor_instance(text=texts, images=image_inputs, videos=video_inputs, padding=True, return_tensors="pt")
     return items, inputs
 
 def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path, output_jsonl_path):
-    rank, local_rank = setup_distributed()
     is_main_process = (rank == 0)
     processor = AutoProcessor.from_pretrained(model_path)
-
     if processor.tokenizer.pad_token is None:
         processor.tokenizer.pad_token = processor.tokenizer.eos_token
     processor.tokenizer.padding_side = "left" 
 
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        model_path,
-        torch_dtype=torch.bfloat16,
-        device_map={"": f"cuda:{local_rank}"}
-    )
-
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(model_path, torch_dtype=torch.bfloat16, device_map={"": f"cuda:{local_rank}"})
 
     dataset = CaptionDataset(input_jsonl_path, processor)
-    sampler = torch.utils.data.distributed.DistributedSampler(dataset, num_replicas=dist.get_world_size(), rank=rank)
+    sampler = torch.utils.data.distributed.DistributedSampler(dataset, num_replicas=dist.get_world_size(), rank=rank, shuffle=False)
     dataloader = DataLoader(dataset, batch_size=2, sampler=sampler, collate_fn=lambda batch: collate_fn(batch, processor), num_workers=4)
 
     all_results = []
@@ -118,35 +142,23 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
 
     for items, inputs in dataloader:
         inputs = inputs.to(f"cuda:{local_rank}")
-
         with torch.no_grad():
             generated_ids = model.generate(**inputs, max_new_tokens=256)
-            generated_ids_trimmed = [
-                out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-            ]
-            output_texts = processor.batch_decode(
-                generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-            )
+            generated_ids_trimmed = [out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)]
+            output_texts = processor.batch_decode(generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False)
 
         for item, caption in zip(items, output_texts):
-            result_entry = {
-                "image_id": item['image_id'],
-                "ground_truth": item['ground_truth'],
-                "bbox": item['bbox'],
-                "caption": caption
-            }
+            result_entry = {"image_id": item['image_id'], "ground_truth": item['ground_truth'], "bbox": item['bbox'], "caption": caption}
             all_results.append(result_entry)
         
         if is_main_process:
             print(f"Rank {rank} processed a batch.")
-
 
     all_results_gathered = [None] * dist.get_world_size()
     dist.all_gather_object(all_results_gathered, all_results)
     
     if is_main_process:
         final_results = [item for sublist in all_results_gathered for item in sublist]
-        
         with open(output_jsonl_path, 'w', encoding='utf-8') as f_out:
             for result in final_results:
                 f_out.write(json.dumps(result, ensure_ascii=False) + '\n')
@@ -154,18 +166,16 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
 
     dist.destroy_process_group()
 
-
 if __name__ == "__main__":
-    local_model_path = "/home/data2/zkj/llt_code/public_model/Qwen2.5-VL-7B-Instruct/"
-    input_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/pidray/trainset_all.jsonl'
-    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/pidxray/trainset_caption.jsonl'
+    local_model_path = "public_model/Qwen2.5-VL-7B-Instruct/"
+    input_jsonl_file = 'STING-BEE/dataset/pidray/trainset_all.jsonl'
+    output_jsonl_file = 'STING-BEE/dataset/pidxray/trainset_caption.jsonl'
 
+    rank, local_rank = setup_distributed()
     generate_captions_distributed(
-        rank=0, 
-        local_rank=0,
+        rank=rank, 
+        local_rank=local_rank,
         model_path=local_model_path,
         input_jsonl_path=input_jsonl_file,
         output_jsonl_path=output_jsonl_file
     )
-
-# Start command: torchrun --nproc_per_node=6 dataset_construction/opixray/text_caption.py

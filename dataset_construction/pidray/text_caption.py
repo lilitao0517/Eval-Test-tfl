@@ -82,7 +82,7 @@ Based on the image, generate a caption for the following prohibited items: [clas
 Their corresponding bounding box coordinates are: [bboxes].
 
 Output Format:
-Generate a single, cohesive paragraph. Do not use lists or bullet points. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
+Generate a single, cohesive paragraph. Please note that the caption must have the contraband <bbox>[x1,y1,x2,y2]<\bbox> field. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
 """
 
     def __len__(self):
@@ -167,9 +167,9 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
     dist.destroy_process_group()
 
 if __name__ == "__main__":
-    local_model_path = "public_model/Qwen2.5-VL-7B-Instruct/"
-    input_jsonl_file = 'STING-BEE/dataset/pidray/trainset_all.jsonl'
-    output_jsonl_file = 'STING-BEE/dataset/pidxray/trainset_caption.jsonl'
+    local_model_path = "/home/data2/zkj/llt_code/public_model/Qwen2.5-VL-7B-Instruct/"
+    input_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/pidray/trainset_all.jsonl'
+    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/pidray/trainset_caption_v2.jsonl'
 
     rank, local_rank = setup_distributed()
     generate_captions_distributed(

@@ -103,7 +103,7 @@ Key Principles:
 * Dynamic Content: The caption must accurately reflect all provided items. If there is one item, focus on it. If there are multiple, describe them in relation to each other and the overall package.
 * Structural Requirements: Your caption must seamlessly integrate the following elements:
   1. Inventory & Count: Clearly state the number and class of all prohibited items present (e.g., "a single lighter," "two items: a sprayer and a power bank").
-  2. Precise Location: For each item, embed its exact coordinates in the format <bbox>[x1,y1,x2,y2]<bbox>.
+  2. Precise Location: For each item, embed its exact coordinates in the format <bbox>[x1,y1,x2,y2]<\bbox>.
   3. Spatial Description: Describe the approximate location of each item within the luggage or package (e.g., "in the upper-left corner," "nestled among clothing," "at the center").
   4. Detailed Features: Describe fine-grained characteristics of each item (e.g., "a metal lighter with a transparent fuel chamber," "a sprayer with a red plastic nozzle").
   5. Color & Material: Comment on the X-ray color representation of the items (e.g., "appears orange due to its organic material," "shows a bright blue, indicating dense plastic or metal").
@@ -113,7 +113,7 @@ Based on the image, generate a caption for the following prohibited items: [clas
 Their corresponding bounding box coordinates are: [bbox].
 
 Output Format:
-Generate a single, cohesive paragraph. Do not use lists or bullet points. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
+Generate a single, cohesive paragraph. Please note that the caption must have the contraband <bbox>[x1,y1,x2,y2]<\bbox> field. Vary your sentence structure and vocabulary to ensure each caption is unique and natural-sounding. Output only the caption itself, with no additional explanations.
 """
 
     def __len__(self):
@@ -262,9 +262,9 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
 
 if __name__ == "__main__":
 
-    local_model_path = "public_model/Qwen2.5-VL-7B-Instruct/"
-    input_jsonl_file = 'STING-BEE/dataset/opixray/trainset_all.jsonl'
-    output_jsonl_file = 'STING-BEE/dataset/opixray/trainset_caption_v2.jsonl'
+    local_model_path = "/home/data2/zkj/llt_code/public_model/Qwen2.5-VL-7B-Instruct/"
+    input_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_all.jsonl'
+    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_caption_v2.jsonl'
 
     rank, local_rank = setup_distributed()
     

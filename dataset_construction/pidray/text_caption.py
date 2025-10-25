@@ -18,7 +18,6 @@ from PIL import Image
 import math
 from typing import Tuple
 
-# --- Start of Added Code for Bbox Resizing ---
 
 def smart_resize(
     height: int, width: int, factor: int = 28, min_pixels: int = 56 * 56, max_pixels: int = 14 * 14 * 4 * 1280
@@ -63,7 +62,6 @@ def convert_to_qwen25vl_format(bbox, orig_height, orig_width, factor=28, min_pix
     
     return [x1_new, y1_new, x2_new, y2_new]
 
-# --- End of Added Code for Bbox Resizing ---
 
 
 def setup_distributed():
@@ -272,8 +270,8 @@ def generate_captions_distributed(rank, local_rank, model_path, input_jsonl_path
 if __name__ == "__main__":
 
     local_model_path = "/home/data2/zkj/llt_code/public_model/Qwen2.5-VL-7B-Instruct/"
-    input_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_all.jsonl'
-    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/opixray/trainset_caption.jsonl'
+    input_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/pidray/trainset_all.jsonl'
+    output_jsonl_file = '/home/data2/zkj/llt_code/STING-BEE/dataset/pidray/trainset_caption.jsonl'
 
     rank, local_rank = setup_distributed()
     

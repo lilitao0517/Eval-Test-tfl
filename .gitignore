@@ -7,3 +7,6 @@ _config.yml
 CaptionGen2.png
 stingbee_demo.py
 dataset/opixray/trainset_caption.jsonl
+dataset/opixray/trainset_caption_坐标筛选.jsonl
+dataset/pidray/trainset_caption.jsonl
+scripts/*
